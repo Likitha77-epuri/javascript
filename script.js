@@ -1,22 +1,27 @@
-let colorContainer = document.getElementById("colorContainer");
-let selected = document.getElementById("selected");
+let smallScreenElement=document.getElementById("seasonSmallImage");
+let mediumScreenElement=document.getElementById("seasonMediumImage");
+let springsmallImage="https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/seasons-switcher-spring-xs-img.png";
+let springMediumImage="https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/seasons-switcher-spring-md-img.png";
+let summersmallImage="https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/seasons-switcher-summer-xs-img.png";
+let summerMediumImage="https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/seasons-switcher-summer-md-img.png";
+let autumnsmallImage="https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/seasons-switcher-autumn-xs-img.png";
+let autumnmediumImage="https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/seasons-switcher-autumn-md-img.png";
+let wintersmallImage="https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/seasons-switcher-winter-xs-img.png";
+let wintermediumImage="https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/seasons-switcher-winter-md-img.png";
 
-function button1() {
-    colorContainer.style.backgroundColor = "#e0e0e0";
-    selected.textContent = "#e0e0e0";
+function springImage(){
+    smallScreenElement.src=springsmallImage;
+    mediumScreenElement.src=springMediumImage;
 }
-
-function button2() {
-    colorContainer.style.backgroundColor = "#6fcf97";
-    selected.textContent = "#6fcf97";
+function summerImage(){
+    smallScreenElement.src=summersmallImage;
+    mediumScreenElement.src=summerMediumImage;
 }
-
-function button3() {
-    colorContainer.style.backgroundColor = "#56ccf2";
-    selected.textContent = "#56ccf2";
+function autumnImage(){
+    smallScreenElement.src=autumnsmallImage;
+    mediumScreenElement.src=autumnmediumImage;
 }
-
-function button4() {
-    colorContainer.style.backgroundColor = "#bb6bd9";
-    selected.textContent = "#bb6bd9";
+function winterImage(){
+    smallScreenElement.src=wintersmallImage;
+    mediumScreenElement.src=wintermediumImage;
 }
