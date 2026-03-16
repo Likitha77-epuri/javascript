@@ -1,20 +1,26 @@
-let puppyImg = document.getElementById("puppyImage");
-let icon = document.getElementById("likeIcon");
-let like = document.getElementById("likeButton");
-let liked = false;
-
-function onClickLikeButton() {
-    if (liked == false) {
-        puppyImg.src = "https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/white-puppy-liked-img.png";
-        icon.style.color = "#cbd2d9";
-        like.style.backgroundColor = "#cbd2d9";
-        like.style.color = "#9aa5b1";
-        liked = true;
-    } else {
-        puppyImg.src = "https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/white-puppy-img.png";
-        icon.style.color = "#0967d2";
-        like.style.backgroundColor = "#0967d2";
-        like.style.color = "#cbd2d9";
-        liked = false;
+let billAmountInput=document.getElementById("billAmount");
+let percentageTipInput=document.getElementById("percentageTip");
+let errorMessageElement=document.getElementById("errorMessage")
+let tipAmountInput=document.getElementById("tipAmount");
+let totalInput=document.getElementById("totalAmount");
+function calculateTip(){
+    let billAmountInputValue=billAmountInput.value;
+    let percentageTipInputValue=percentageTipInput.value;
+    
+    if (billAmountInputValue===""){
+        errorMessageElement.textContent=errorMessage;
+    }
+    else if(percentageTipInputValue===""){
+        errorMessageElement.textContent=errorMessage;
+    }
+    else{
+        errorMessageElement.textContent="";
+        let billAmount=parseInt(billAmountInputValue);
+        let percentageTip=parseInt(percentageTipInputValue);
+        let calculatedTip=(percentageTip/100)*billAmount;
+        let calculatedTotal=billAmount+calculatedTip;
+        tipAmountInput.value=calculatedTip;
+        totalInput.value=calculatedTotal;
     }
 }
+
