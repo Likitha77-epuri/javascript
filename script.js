@@ -1,26 +1,37 @@
-let billAmountInput=document.getElementById("billAmount");
-let percentageTipInput=document.getElementById("percentageTip");
-let errorMessageElement=document.getElementById("errorMessage")
-let tipAmountInput=document.getElementById("tipAmount");
-let totalInput=document.getElementById("totalAmount");
-function calculateTip(){
-    let billAmountInputValue=billAmountInput.value;
-    let percentageTipInputValue=percentageTipInput.value;
-    
-    if (billAmountInputValue===""){
-        errorMessageElement.textContent=errorMessage;
-    }
-    else if(percentageTipInputValue===""){
-        errorMessageElement.textContent=errorMessage;
-    }
-    else{
-        errorMessageElement.textContent="";
-        let billAmount=parseInt(billAmountInputValue);
-        let percentageTip=parseInt(percentageTipInputValue);
-        let calculatedTip=(percentageTip/100)*billAmount;
-        let calculatedTotal=billAmount+calculatedTip;
-        tipAmountInput.value=calculatedTip;
-        totalInput.value=calculatedTotal;
+let imageElement = document.getElementById("image");
+let imageWidthElement = document.getElementById("imageWidth");
+let warningMessageElement = document.getElementById("warningMessage");
+
+let defaultImageWidth = 200;
+let imageMaxWidth = 300;
+let imageMinWidth = 100;
+let maxWidthWarningMessage = "Too big. Decrease the size of the Image.";
+let minWidthWarningMessage = "Can't Visible. Increase the size of the Image.";
+
+imageElement.style.width = defaultImageWidth + "px";
+imageWidthElement.textContent = defaultImageWidth + "px";
+
+function increment() {
+    if (defaultImageWidth >= imageMaxWidth) {
+        warningMessageElement.textContent = maxWidthWarningMessage;
+    } else {
+        defaultImageWidth = defaultImageWidth + 5;
+        let updatedImageWidth = defaultImageWidth + "px";
+
+        warningMessageElement.textContent = "";
+        imageElement.style.width = updatedImageWidth;
+        imageWidthElement.textContent = updatedImageWidth;
     }
 }
 
+function decrement() {
+    if (defaultImageWidth <= imageMinWidth) {
+        warningMessageElement.textContent = minWidthWarningMessage;
+    } else {
+        defaultImageWidth = defaultImageWidth - 5;
+        let updatedImageWidth = defaultImageWidth + "px";
+        warningMessageElement.textContent = "";
+        imageElement.style.width = updatedImageWidth;
+        imageWidthElement.textContent = updatedImageWidth;
+    }
+}
