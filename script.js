@@ -1,6 +1,9 @@
-let myArray = [5, "six", 2, 8.2];
-let lastItem = myArray.pop();
+let person = {
+  firstName: "Rahul",
+  lastName: "Attuluri",
+  age: 28,
+  "1": "value1",
+  "my choice": "value2",
+};
 
-console.log(myArray);  // [5, "six", 2]
-
-console.log(lastItem);  // 8.2
+console.log(person.firstName); 
