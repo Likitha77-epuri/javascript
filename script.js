@@ -6,4 +6,4 @@ let person = {
   "my choice": "value2",
 };
 
-console.log(person.firstName); 
+console.log(person["firstName"]);  // Rahul
