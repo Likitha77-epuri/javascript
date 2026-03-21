@@ -2,8 +2,9 @@ let person = {
   firstName: "Rahul",
   lastName: "Attuluri",
   age: 28,
-  "1": "value1",
-  "my choice": "value2",
+  run: function () {
+    console.log("Start Running.");
+  },
 };
 
-console.log(person["firstName"]);  // Rahul
+person.run();  // Start Running.
