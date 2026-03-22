@@ -1,10 +1,11 @@
-let person = {
-  firstName: "Rahul",
-  lastName: "Attuluri",
-  age: 28,
-  run: function () {
-    console.log("Start Running.");
-  },
-};
-
-person.run();  // Start Running.
+<li class="todo-item-container d-flex flex-row">
+  <input type="checkbox" id="checkboxInput" class="checkbox-input" />
+  <div class="d-flex flex-row label-container">
+    <label for="checkboxInput" class="checkbox-label">
+      Learn HTML
+    </label>
+    <div class="delete-icon-container">
+      <i class="far fa-trash-alt delete-icon"></i>
+    </div>
+  </div>
+</li>
