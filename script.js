@@ -1,15 +1,5 @@
-let person = {
-  firstName: "Rahul",
-  lastName: "Attuluri",
-  age: 28,
-  habits: ["Playing Chess", "Singing", "Dancing"],
-  car: {
-    name: "Audi",
-    model: "A6",
-    color: "White",
-  },
-};
+let myArray = [1, 2, 3, 4];
 
-console.log(person.car.name);  // Audi
-
-console.log(person.car["model"]);  // A6
+for (let eachItem of myArray) {
+   console.log(eachItem);
+}
