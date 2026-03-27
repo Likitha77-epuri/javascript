@@ -26,13 +26,14 @@ function readLine() {
 function main() {
   // index
   let index = parseInt(readLine());
+  // val
+  let val = parseInt(readLine());
   // myArray
-  let myArray = [25, false, "green", "apple"];
+  let myArray = [25, 50, "center", 75, 100];
 
   /*
    * Write your code here and log the output.
    */
-   console.log(myArray[index])
-       
-   
+   myArray[index]=val;
+   console.log(myArray);
 }
