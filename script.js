@@ -1,22 +1,39 @@
-let bgColorInputElement=document.getElementById("bgColorInput");
-let fontColorInputElement=document.getElementById("fontColorInput");
-let fontSizeInputElement=document.getElementById("fontSizeInput");
-let fontWeightInputElement=document.getElementById("fontWeightInput");
-let paddingInputElement=document.getElementById("paddingInput");
-let borderRadiusInputElement=document.getElementById("borderRadiusInput");
-let customButtonElement=document.getElementById("customButton");
-function onApplyProperties(){
-    let bgColorValue=bgColorInputElement.value;
-    let fontColorValue=fontColorInputElement.value;
-    let fontSizeValue=fontSizeInputElement.value;
-    let fontWeightValue=fontWeightInputElement.value;
-    let paddingValue=paddingInputElement.value;
-    let borderRadiusValue=borderRadiusInputElement.value;
+let aboutTabElement=document.getElementById("aboutTab");
+let timeToVisitTabElement=document.getElementById("timeToVisitTab");
+let attractionsTabElement=document.getElementById("attractionsTab");
+let aboutButtonElement=document.getElementById("aboutButton");
+let timeToVisitButtonElement=document.getElementById("timeToVisitButton");
+let attractionsButtonElement=document.getElementById("attractionsButton");
+
+timeToVisitTabElement.classList.add("d-none");
+attractionsTabElement.classList.add("d-none");
+
+function onClickAboutTab(){
+    aboutTabElement.classList.remove("d-none");
+    timeToVisitTabElement.classList.add("d-none");
+    attractionsTabElement.classList.add("d-none");
     
-    customButtonElement.style.backgroundColor=bgColorValue;
-    customButtonElement.style.color=fontColorValue;
-    customButtonElement.style.fontSize=fontSizeValue;
-    customButtonElement.style.fontWeight=fontWeightValue;
-    customButtonElement.style.padding=paddingValue;
-    customButtonElement.style.borderRadius=borderRadiusValue;
+    aboutTabElement.classList.add("selected-button");
+    timeToVisitTabElement.classList.remove("selected-button");
+    attractionsTabElement.classList.remove("selected-button");
+}
+
+function onClickTimeToVisitTab(){
+    aboutTabElement.classList.add("d-none");
+    timeToVisitTabElement.classList.remove("d-none");
+    attractionsTabElement.classList.add("d-none");
+    
+    aboutTabElement.classList.remove("selected-button");
+    timeToVisitTabElement.classList.add("selected-button");
+    attractionsTabElement.classList.remove("selected-button");
+}
+
+function onClickAttractionsTab(){
+    aboutTabElement.classList.add("d-none");
+    timeToVisitTabElement.classList.add("d-none");
+    attractionsTabElement.classList.remove("d-none");
+    
+    aboutTabElement.classList.remove("selected-button");
+    timeToVisitTabElement.classList.remove("selected-button");
+    attractionsTabElement.classList.add("selected-button");
 }
