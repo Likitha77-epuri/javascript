@@ -24,16 +24,13 @@ function readLine() {
 }
 
 function main() {
-  // index
-  let index = parseInt(readLine());
-  // val
-  let val = parseInt(readLine());
+  let input = readLine().replace(/'/g, '"');
   // myArray
-  let myArray = [25, 50, "center", 75, 100];
+  let myArray = JSON.parse(input);
 
   /*
-   * Write your code here and log the output.
+   *Write your code here and log the output.
    */
-   myArray[index]=val;
-   console.log(myArray);
+   let lengthArr=myArray.length;
+   console.log(lengthArr);
 }
