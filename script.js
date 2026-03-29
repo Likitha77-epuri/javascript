@@ -27,13 +27,11 @@ function main() {
   let input = readLine().replace(/'/g, '"');
   // myArray
   let myArray = JSON.parse(input);
-  // val
-  let val = parseInt(readLine());
 
   /*
    * Write your code here and log the output.
    */
-   myArray.push(val);
+   console.log(myArray[myArray.length-1])
+   myArray.pop();
    console.log(myArray);
-  
 }
