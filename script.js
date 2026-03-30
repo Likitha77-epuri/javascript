@@ -1,37 +1,32 @@
-let imageElement = document.getElementById("image");
-let imageWidthElement = document.getElementById("imageWidth");
-let warningMessageElement = document.getElementById("warningMessage");
+let firstNumberElement = document.getElementById("firstNumber");
+let secondNumberElement = document.getElementById("secondNumber");
+let userInputElement = document.getElementById("userInput");
+let gameResultElement = document.getElementById("gameResult");
+let successMessage = "Congratulations! You got it right.";
+let tryAgainMessage = "Please Try Again!";
 
-let defaultImageWidth = 200;
-let imageMaxWidth = 300;
-let imageMinWidth = 100;
-let maxWidthWarningMessage = "Too big. Decrease the size of the Image.";
-let minWidthWarningMessage = "Can't Visible. Increase the size of the Image.";
+function restartGame() {
+    let firstRandomNumber = Math.random() * 100;
+    let secondRandomNumber = Math.random() * 100;
 
-imageElement.style.width = defaultImageWidth + "px";
-imageWidthElement.textContent = defaultImageWidth + "px";
+    firstNumberElement.textContent = Math.ceil(firstRandomNumber);
+    secondNumberElement.textContent = Math.ceil(secondRandomNumber);
 
-function increment() {
-    if (defaultImageWidth >= imageMaxWidth) {
-        warningMessageElement.textContent = maxWidthWarningMessage;
-    } else {
-        defaultImageWidth = defaultImageWidth + 5;
-        let updatedImageWidth = defaultImageWidth + "px";
-
-        warningMessageElement.textContent = "";
-        imageElement.style.width = updatedImageWidth;
-        imageWidthElement.textContent = updatedImageWidth;
-    }
+    gameResultElement.textContent = "";
+    userInputElement.value = "";
 }
+restartGame();
 
-function decrement() {
-    if (defaultImageWidth <= imageMinWidth) {
-        warningMessageElement.textContent = minWidthWarningMessage;
+function checkResult() {
+    let firstRandomInteger = parseInt(firstNumberElement.textContent);
+    let secondRandomInteger = parseInt(secondNumberElement.textContent);
+    let userEnteredSum = parseInt(userInputElement.value);
+    let sumOfRandomNumbers = firstRandomInteger + secondRandomInteger;
+    if (userEnteredSum === sumOfRandomNumbers) {
+        gameResultElement.textContent = successMessage;
+        gameResultElement.style.backgroundColor = "#028a0f";
     } else {
-        defaultImageWidth = defaultImageWidth - 5;
-        let updatedImageWidth = defaultImageWidth + "px";
-        warningMessageElement.textContent = "";
-        imageElement.style.width = updatedImageWidth;
-        imageWidthElement.textContent = updatedImageWidth;
+        gameResultElement.textContent = tryAgainMessage;
+        gameResultElement.style.backgroundColor = "#1e217c";
     }
 }
