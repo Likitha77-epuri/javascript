@@ -1,32 +1,38 @@
-let firstNumberElement = document.getElementById("firstNumber");
-let secondNumberElement = document.getElementById("secondNumber");
-let userInputElement = document.getElementById("userInput");
-let gameResultElement = document.getElementById("gameResult");
-let successMessage = "Congratulations! You got it right.";
-let tryAgainMessage = "Please Try Again!";
+"use strict";
 
-function restartGame() {
-    let firstRandomNumber = Math.random() * 100;
-    let secondRandomNumber = Math.random() * 100;
+process.stdin.resume();
+process.stdin.setEncoding("utf-8");
 
-    firstNumberElement.textContent = Math.ceil(firstRandomNumber);
-    secondNumberElement.textContent = Math.ceil(secondRandomNumber);
+let inputString = "";
+let currentLine = 0;
 
-    gameResultElement.textContent = "";
-    userInputElement.value = "";
+process.stdin.on("data", (inputStdin) => {
+  inputString += inputStdin;
+});
+
+process.stdin.on("end", (_) => {
+  inputString = inputString
+    .trim()
+    .split("\n")
+    .map((str) => str.trim());
+
+  main();
+});
+
+function readLine() {
+  return inputString[currentLine++];
 }
-restartGame();
 
-function checkResult() {
-    let firstRandomInteger = parseInt(firstNumberElement.textContent);
-    let secondRandomInteger = parseInt(secondNumberElement.textContent);
-    let userEnteredSum = parseInt(userInputElement.value);
-    let sumOfRandomNumbers = firstRandomInteger + secondRandomInteger;
-    if (userEnteredSum === sumOfRandomNumbers) {
-        gameResultElement.textContent = successMessage;
-        gameResultElement.style.backgroundColor = "#028a0f";
-    } else {
-        gameResultElement.textContent = tryAgainMessage;
-        gameResultElement.style.backgroundColor = "#1e217c";
-    }
+function main() {
+  // myArray
+  let myArray = JSON.parse(readLine().replace(/'/g, '"'));
+
+  /*
+   *Write your code here and log the output.
+   */
+   let sum=0;
+   for(let i=0;i<myArray.length;i++){
+       sum+=myArray[i];
+   }
+   console.log(sum);
 }
