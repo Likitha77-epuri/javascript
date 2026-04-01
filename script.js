@@ -24,41 +24,16 @@ function readLine() {
 }
 
 function main() {
-  // objectKey
-  let objectKey = readLine().replace(/'/g, '"');
-  // arrayOfInventions
-  let arrayOfInventions = [
-    {
-      name: "Printing Press",
-      "invented by": "Johannes Gutenberg",
-      year: 1440
-    },
-    {
-      name: "Light Bulb",
-      "invented by": "Thomas Edison",
-      year: 1879
-    },
-    {
-      name: "Telephone",
-      "invented by": "Alexander Graham Bell",
-      year: 1876
-    },
-    {
-      name: "Aeroplane",
-      "invented by": "Orville and Wilbur Wright",
-      year: 1903
-    },
-    {
-      name: "Computer",
-      "invented by": "Charles Babbage",
-      year: 1822
-    }
-  ];
+  // arrayOfPersons
+  let arrayOfPersons = JSON.parse(readLine().replace(/'/g, '"'));
 
   /*
    *Write your code here and log the output.
    */
-   for (let i=0;i<arrayOfInventions.length;i++){
-       console.log(arrayOfInventions[i][objectKey]);
+   for (let i=0;i<arrayOfPersons.length;i++){
+       if(arrayOfPersons[i].age>=18){
+           console.log(arrayOfPersons[i].name);
+       
+       }
    }
 }
