@@ -1,40 +1,22 @@
-"use strict";
+let profileDetails = {
+    imgSrc: "https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/user-profile-img.png",
+    name: "RAHUL ATTULURI",
+    age: 25
+};
+let profileContainerElement = document.getElementById("profileContainer");
+profileContainerElement.classList.add("text-center", "d-flex", "flex-column", "justify-content-center");
+let imageContainerElement = document.getElementById("imgContainer");
+let imageElement = document.createElement("img");
+imageElement.setAttribute("src", profileDetails.imgSrc);
+imageElement.classList.add("profile-img");
+imageContainerElement.appendChild(imageElement);
 
-process.stdin.resume();
-process.stdin.setEncoding("utf-8");
+let nameElement = document.createElement("h1");
+nameElement.classList.add("profile-name");
+nameElement.textContent = profileDetails.name;
+profileContainerElement.appendChild(nameElement);
 
-let inputString = "";
-let currentLine = 0;
-
-process.stdin.on("data", (inputStdin) => {
-  inputString += inputStdin;
-});
-
-process.stdin.on("end", (_) => {
-  inputString = inputString
-    .trim()
-    .split("\n")
-    .map((str) => str.trim());
-
-  main();
-});
-
-function readLine() {
-  return inputString[currentLine++];
-}
-
-function main() {
-  // arrayOfCarBrands
-  let arrayOfCarBrands = JSON.parse(readLine().replace(/'/g, '"'));
-
-  /*
-   *Write your code here and log the output.
-   */
-   let indianBrands=[];
-   for(let i=0;i<arrayOfCarBrands.length;i++){
-       if(arrayOfCarBrands[i].country==="India"){
-           indianBrands.push(arrayOfCarBrands[i].name);
-       }
-   }
-   console.log(indianBrands);
-}
+let ageElement = document.createElement("p");
+ageElement.classList.add("age");
+ageElement.textContent = "Age: " + profileDetails.age;
+profileContainerElement.appendChild(ageElement);
