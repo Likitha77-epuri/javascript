@@ -24,16 +24,17 @@ function readLine() {
 }
 
 function main() {
-  // arrayOfPersons
-  let arrayOfPersons = JSON.parse(readLine().replace(/'/g, '"'));
+  // arrayOfCarBrands
+  let arrayOfCarBrands = JSON.parse(readLine().replace(/'/g, '"'));
 
   /*
    *Write your code here and log the output.
    */
-   for (let i=0;i<arrayOfPersons.length;i++){
-       if(arrayOfPersons[i].age>=18){
-           console.log(arrayOfPersons[i].name);
-       
+   let indianBrands=[];
+   for(let i=0;i<arrayOfCarBrands.length;i++){
+       if(arrayOfCarBrands[i].country==="India"){
+           indianBrands.push(arrayOfCarBrands[i].name);
        }
    }
+   console.log(indianBrands);
 }
