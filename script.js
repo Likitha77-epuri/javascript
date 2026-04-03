@@ -1,23 +1,47 @@
-let recipeObj = {
-    title: "Tomato Pasta",
-    imgSrc: "https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/recipe-img.png",
-    ingredients: ["Pasta", "Oil", "Onions", "Salt", "Tomato Pasta Sauce", "Cheese"]
-};
-let ingredientList = recipeObj.ingredients;
+/* Follow the instructions found in the description to complete the JavaScript functionality.*/
 
-let recipeTitleElement = document.getElementById("recipeTitle");
-let imgContainerElement = document.getElementById("imgContainer");
-let imgElement = document.getElementById("img");
-let ingredientListContainerElement = document.getElementById("ingredientListContainer");
+let todoList = [{
+        text: "Learn HTML"
+    },
+    {
+        text: "Learn CSS"
+    },
+    {
+        text: "Learn JavaScript"
+    }
+];
+let todoContainer = document.getElementById("todoItemsContainer");
 
-recipeTitleElement.textContent = recipeObj.title;
-imgElement.setAttribute("src", recipeObj.imgSrc);
-imgElement.classList.add("w-180");
-imgContainerElement.appendChild(imgElement);
+function createAndappendTodo(todo) {
+    let todoElement = document.createElement("li");
+    todoElement.classList.add("todoo-item-container", "d-flex", "flex-row");
+    todoItemsContainer.appendChild(todoElement);
 
-for (let ingredient of ingredientList) {
-    let ingredientElement = document.createElement("li");
-    ingredientElement.textContent = ingredient;
-    ingredientElement.classList.add("ingredient");
-    ingredientListContainerElement.appendChild(ingredientElement);
+    let inputElement = document.createElement("input");
+    inputElement.type = "checkbox";
+    inputElement.id = "checkboxInput";
+    inputElement.classList.add("checkbox-input");
+    todoElement.appendChild(inputElement);
+
+    let labelContainer = document.createElement("div");
+    labelContainer.classList.add("label-container", "d-flex", "flex-row");
+    todoElement.appendChild(labelContainer);
+
+    let labelElement = document.createElement("label");
+    labelElement.setAttribute("for", "checkboxInput");
+    labelElement.classList.add("checkbox-label");
+    labelElement.textContent = todo.text;
+    labelContainer.appendChild(labelElement);
+
+    let deleteIconContainer = document.createElement("div");
+    deleteIconContainer.classList.add("delete-icon-container");
+    labelContainer.appendChild(deleteIconContainer);
+
+    let deleteIcon = document.createElement("i");
+    deleteIcon.classList.add("far", "fa-trash-alt", "delete-icon");
+    deleteIconContainer.appendChild(deleteIcon);
+}
+
+for (let todo of todoList) {
+    createAndappendTodo(todo);
 }
