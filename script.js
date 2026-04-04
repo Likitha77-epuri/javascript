@@ -1,20 +1,15 @@
-let groceryList = ["Apples", "Boost Drink", "Butterscotch Ice Cream", "Tomato Ketchup", "Dairy Milk Chocolates", "Pasta"];
+let checkboxWithLabelContainerElement = document.getElementById("checkboxWithLabelContainer");
 
-let groceryListContainerElement = document.getElementById("groceryListContainer");
+checkboxWithLabelContainerElement.classList.add("text-center", "p-5");
 
-groceryListContainerElement.classList.add("grocery-list-container");
+let checkBoxElement = document.createElement("input");
+checkBoxElement.type = "checkbox";
+checkBoxElement.id = "checkbox";
+checkboxWithLabelContainerElement.appendChild(checkBoxElement);
 
-let headingElement = document.createElement("h1");
-headingElement.classList.add("grocery-list-heading");
-headingElement.textContent = "Grocery-List";
-groceryListContainerElement.appendChild(headingElement);
-
-let listItemsContainerElement = document.createElement("ul");
-listItemsContainerElement.classList.add("list-items-container");
-groceryListContainerElement.appendChild(listItemsContainerElement);
-
-for (let groceryItem of groceryList) {
-    let listItemElement = document.createElement("li");
-    listItemElement.textContent = groceryItem;
-    listItemsContainerElement.appendChild(listItemElement);
-}
+let labelElement = document.createElement("label");
+labelElement.setAttribute("for", "checkbox");
+labelElement.textContent = "Click Me!";
+labelElement.classList.add("ml-2");
+labelElement.id = "checkboxLabel";
+checkboxWithLabelContainerElement.appendChild(labelElement);
