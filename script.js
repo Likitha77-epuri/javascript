@@ -1,47 +1,20 @@
-/* Follow the instructions found in the description to complete the JavaScript functionality.*/
+let groceryList = ["Apples", "Boost Drink", "Butterscotch Ice Cream", "Tomato Ketchup", "Dairy Milk Chocolates", "Pasta"];
 
-let todoList = [{
-        text: "Learn HTML"
-    },
-    {
-        text: "Learn CSS"
-    },
-    {
-        text: "Learn JavaScript"
-    }
-];
-let todoContainer = document.getElementById("todoItemsContainer");
+let groceryListContainerElement = document.getElementById("groceryListContainer");
 
-function createAndappendTodo(todo) {
-    let todoElement = document.createElement("li");
-    todoElement.classList.add("todoo-item-container", "d-flex", "flex-row");
-    todoItemsContainer.appendChild(todoElement);
+groceryListContainerElement.classList.add("grocery-list-container");
 
-    let inputElement = document.createElement("input");
-    inputElement.type = "checkbox";
-    inputElement.id = "checkboxInput";
-    inputElement.classList.add("checkbox-input");
-    todoElement.appendChild(inputElement);
+let headingElement = document.createElement("h1");
+headingElement.classList.add("grocery-list-heading");
+headingElement.textContent = "Grocery-List";
+groceryListContainerElement.appendChild(headingElement);
 
-    let labelContainer = document.createElement("div");
-    labelContainer.classList.add("label-container", "d-flex", "flex-row");
-    todoElement.appendChild(labelContainer);
+let listItemsContainerElement = document.createElement("ul");
+listItemsContainerElement.classList.add("list-items-container");
+groceryListContainerElement.appendChild(listItemsContainerElement);
 
-    let labelElement = document.createElement("label");
-    labelElement.setAttribute("for", "checkboxInput");
-    labelElement.classList.add("checkbox-label");
-    labelElement.textContent = todo.text;
-    labelContainer.appendChild(labelElement);
-
-    let deleteIconContainer = document.createElement("div");
-    deleteIconContainer.classList.add("delete-icon-container");
-    labelContainer.appendChild(deleteIconContainer);
-
-    let deleteIcon = document.createElement("i");
-    deleteIcon.classList.add("far", "fa-trash-alt", "delete-icon");
-    deleteIconContainer.appendChild(deleteIcon);
-}
-
-for (let todo of todoList) {
-    createAndappendTodo(todo);
+for (let groceryItem of groceryList) {
+    let listItemElement = document.createElement("li");
+    listItemElement.textContent = groceryItem;
+    listItemsContainerElement.appendChild(listItemElement);
 }
