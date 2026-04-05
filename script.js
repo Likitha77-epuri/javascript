@@ -1,15 +1,12 @@
-let checkboxWithLabelContainerElement = document.getElementById("checkboxWithLabelContainer");
+let cartItemTextInputElement = document.getElementById("cartItemTextInput");
+let cartItemsContainerElement = document.getElementById("cartItemsContainer");
 
-checkboxWithLabelContainerElement.classList.add("text-center", "p-5");
+function onAddCartItem() {
+    let cartItemText = cartItemTextInputElement.value;
 
-let checkBoxElement = document.createElement("input");
-checkBoxElement.type = "checkbox";
-checkBoxElement.id = "checkbox";
-checkboxWithLabelContainerElement.appendChild(checkBoxElement);
+    let cartItemElement = document.createElement("li");
+    cartItemElement.textContent = cartItemText;
 
-let labelElement = document.createElement("label");
-labelElement.setAttribute("for", "checkbox");
-labelElement.textContent = "Click Me!";
-labelElement.classList.add("ml-2");
-labelElement.id = "checkboxLabel";
-checkboxWithLabelContainerElement.appendChild(labelElement);
+    cartItemTextInputElement.value = "";
+    cartItemsContainerElement.appendChild(cartItemElement);
+}
