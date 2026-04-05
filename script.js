@@ -1,12 +1,23 @@
-let cartItemTextInputElement = document.getElementById("cartItemTextInput");
-let cartItemsContainerElement = document.getElementById("cartItemsContainer");
+let checkBoxWithLabelContainerElement = document.getElementById("checkBoxWithLabelContainer");
+let checkboxId = "checkbox";
+let labelId = "checkboxLabel";
 
-function onAddCartItem() {
-    let cartItemText = cartItemTextInputElement.value;
-
-    let cartItemElement = document.createElement("li");
-    cartItemElement.textContent = cartItemText;
-
-    cartItemTextInputElement.value = "";
-    cartItemsContainerElement.appendChild(cartItemElement);
+function onCheckboxStatusChange() {
+    checkboxLabelElement.classList.toggle("strike-through");
 }
+
+let checkboxInputElement = document.createElement("input");
+checkboxInputElement.type = "checkbox";
+checkboxInputElement.id = checkboxId;
+
+checkboxInputElement.onclick = function() {
+    onCheckboxStatusChange();
+};
+checkBoxWithLabelContainer.appendChild(checkboxInputElement);
+
+let checkboxLabelElement = document.createElement("label");
+checkboxLabelElement.classList.add("checkbox.label");
+checkboxLabelElement.setAttribute("for", checkboxId);
+checkboxLabelElement.id = labelId;
+checkboxLabelElement.textContent = " I am a label";
+checkBoxWithLabelContainer.appendChild(checkboxLabelElement);
