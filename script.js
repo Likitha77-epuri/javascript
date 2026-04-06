@@ -1,47 +1,44 @@
-let skillList = [{
-        skillName: "HTML",
+let itemList = [{
+        itemName: "Veg Biryani",
         uniqueNo: 1,
     },
     {
-        skillName: "CSS",
+        itemName: "Chicken 65",
         uniqueNo: 2,
     },
     {
-        skillName: "JavaScript",
+        itemName: "Paratha",
         uniqueNo: 3,
     }
 ];
+let itemListContainerEl = document.getElementById("itemListContainer");
 
-let skillListContainerElement = document.getElementById("skillListContainer");
-
-function onMarkSkill(labelId) {
-    let labelElement = document.getElementById(labelId);
-    labelElement.classList.toggle("selected");
+function onDeleteItem(itemId) {
+    let itemEl = document.getElementById(itemId);
+    itemListContainerEl.removeChild(itemEl);
 }
 
-function createAndAppendSkill(skill) {
-    let checkboxId = "checkbox" + skill.uniqueNo;
-    let labelId = "label" + skill.uniqueNo;
+function createAndAppendItem(item) {
+    let itemId = "item" + item.uniqueNo;
+    let buttonId = "button" + item.uniqueNo;
 
-    let skillElement = document.createElement("li");
-    skillElement.classList.add("p-1");
-    skillListContainerElement.appendChild(skillElement);
-    let checkBoxElement = document.createElement("input");
-    checkBoxElement.type = "checkbox";
-    checkBoxElement.id = checkboxId;
+    let itemEl = document.createElement("li");
+    itemEl.id = itemId;
+    itemEl.classList.add("ordered-item");
+    itemEl.textContent = item.itemName;
+    itemListContainerEl.appendChild(itemEl);
 
-    checkBoxElement.onclick = function() {
-        onMarkSkill(labelId);
+    let buttonEl = document.createElement("button");
+    buttonEl.classList.add("btn", "btn-danger", "ml-3");
+    buttonEl.textContent = "Cancel";
+    buttonEl.id = buttonId;
+
+    buttonEl.onclick = function() {
+        onDeleteItem(itemId);
     };
-    skillElement.appendChild(checkBoxElement);
-    let labelElement = document.createElement("label");
-    labelElement.setAttribute("for", checkboxId);
-    labelElement.classList.add("checkbox-label");
-    labelElement.id = labelId;
-    labelElement.textContent = skill.skillName;
-    skillElement.appendChild(labelElement);
+    itemEl.appendChild(buttonEl);
 }
 
-for (let skill of skillList) {
-    createAndAppendSkill(skill);
+for (let item of itemList) {
+    createAndAppendItem(item);
 }
