@@ -1,23 +1,47 @@
-let checkBoxWithLabelContainerElement = document.getElementById("checkBoxWithLabelContainer");
-let checkboxId = "checkbox";
-let labelId = "checkboxLabel";
+let skillList = [{
+        skillName: "HTML",
+        uniqueNo: 1,
+    },
+    {
+        skillName: "CSS",
+        uniqueNo: 2,
+    },
+    {
+        skillName: "JavaScript",
+        uniqueNo: 3,
+    }
+];
 
-function onCheckboxStatusChange() {
-    checkboxLabelElement.classList.toggle("strike-through");
+let skillListContainerElement = document.getElementById("skillListContainer");
+
+function onMarkSkill(labelId) {
+    let labelElement = document.getElementById(labelId);
+    labelElement.classList.toggle("selected");
 }
 
-let checkboxInputElement = document.createElement("input");
-checkboxInputElement.type = "checkbox";
-checkboxInputElement.id = checkboxId;
+function createAndAppendSkill(skill) {
+    let checkboxId = "checkbox" + skill.uniqueNo;
+    let labelId = "label" + skill.uniqueNo;
 
-checkboxInputElement.onclick = function() {
-    onCheckboxStatusChange();
-};
-checkBoxWithLabelContainer.appendChild(checkboxInputElement);
+    let skillElement = document.createElement("li");
+    skillElement.classList.add("p-1");
+    skillListContainerElement.appendChild(skillElement);
+    let checkBoxElement = document.createElement("input");
+    checkBoxElement.type = "checkbox";
+    checkBoxElement.id = checkboxId;
 
-let checkboxLabelElement = document.createElement("label");
-checkboxLabelElement.classList.add("checkbox.label");
-checkboxLabelElement.setAttribute("for", checkboxId);
-checkboxLabelElement.id = labelId;
-checkboxLabelElement.textContent = " I am a label";
-checkBoxWithLabelContainer.appendChild(checkboxLabelElement);
+    checkBoxElement.onclick = function() {
+        onMarkSkill(labelId);
+    };
+    skillElement.appendChild(checkBoxElement);
+    let labelElement = document.createElement("label");
+    labelElement.setAttribute("for", checkboxId);
+    labelElement.classList.add("checkbox-label");
+    labelElement.id = labelId;
+    labelElement.textContent = skill.skillName;
+    skillElement.appendChild(labelElement);
+}
+
+for (let skill of skillList) {
+    createAndAppendSkill(skill);
+}
