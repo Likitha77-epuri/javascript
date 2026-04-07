@@ -1,16 +1,43 @@
-let counterValueEl = document.getElementById("counterValue");
-let clickCount = localStorage.getItem("clickCount");
+let bikes = ["Hero", "Honda", "Bajaj", "Suzuki", "Yamaha"];
+let person = {
+    name: "Rahul",
+    age: 25,
+    gender: "Male",
+};
+let todos = [{
+        todo: "Attending CCBP sessions",
+        todoStatus: "Completed",
+    },
+    {
+        todo: "Completing practice sets",
+        todoStatus: "Not Completed",
+    },
+    {
+        todo: "Asking doubts",
+        todoStatus: "Completed",
+    },
+];
 
-if (clickCount === null) {
-    counterValueEl.textContent = 0;
-} else {
-    counterValueEl.textContent = clickCount;
+let valuesToStringify = [bikes, person, todos];
+
+let jsonContainerEl = document.getElementById("jsonContainer");
+
+function createAndAppendValue(stringifiedValue) {
+    let valueContainerEl = document.createElement("div");
+    valueContainerEl.classList.add("value-container");
+    jsonContainerEl.appendChild(valueContainerEl);
+
+    let valueEl = document.createElement("span");
+    valueEl.textContent = stringifiedValue;
+    valueEl.classList.add("value");
+    valueContainerEl.appendChild(valueEl);
 }
 
-function onIncrementCount() {
-    let previousCounterValue = counterValueEl.textContent;
-    let updatedCounterValue = parseInt(previousCounterValue) + 1;
+function convertTOJSONString(value) {
+    let stringifiedValue = JSON.stringify(value);
+    createAndAppendValue(stringifiedValue);
+}
 
-    localStorage.setItem("clickCount", updatedCounterValue);
-    counterValueEl.textContent = updatedCounterValue;
+for (let value of valuesToStringify) {
+    convertTOJSONString(value);
 }
