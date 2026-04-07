@@ -1,102 +1,28 @@
-let todoItemsContainer = document.getElementById("todoItemsContainer");
-let addTodoButton = document.getElementById("addTodoButton");
+let reviewsContainerEl = document.getElementById("reviewsContainer");
+let titleInputEl = document.getElementById("titleInput");
+let reviewTextareaEl = document.getElementById("reviewTextarea");
 
-let todoList = [{
-        text: "Learn HTML"
-    },
-    {
-        text: "Learn CSS"
-    },
-    {
-        text: "Learn JavaScript"
-    }
-];
+function onAddReview() {
+    let movieTitle = titleInputEl.value;
+    let movieReview = reviewTextareaEl.value;
 
-let todosCount = todoList.length;
-
-function onTodoStatusChange(checkboxId, labelId) {
-    let checkboxElement = document.getElementById(checkboxId);
-    let labelElement = document.getElementById(labelId);
-
-    labelElement.classList.toggle('checked');
-}
-
-function onDeleteTodo(todoId) {
-    let todoElement = document.getElementById(todoId);
-
-    todoItemsContainer.removeChild(todoElement);
-}
-
-function createAndAppendTodo(todo) {
-    let todoId = "todo" + todo.uniqueNo;
-    let checkboxId = 'checkbox' + todo.uniqueNo;
-    let labelId = 'label' + todo.uniqueNo;
-
-    let todoElement = document.createElement("li");
-    todoElement.classList.add("todo-item-container", "d-flex", "flex-row");
-    todoElement.id = todoId;
-    todoItemsContainer.appendChild(todoElement);
-
-    let inputElement = document.createElement("input");
-    inputElement.type = "checkbox";
-    inputElement.id = checkboxId;
-
-    inputElement.onclick = function() {
-        onTodoStatusChange(checkboxId, labelId);
-    };
-
-    inputElement.classList.add("checkbox-input");
-    todoElement.appendChild(inputElement);
-
-    let labelContainer = document.createElement("div");
-    labelContainer.classList.add("label-container", "d-flex", "flex-row");
-    todoElement.appendChild(labelContainer);
-
-    let labelElement = document.createElement("label");
-    labelElement.setAttribute("for", checkboxId);
-    labelElement.id = labelId;
-    labelElement.classList.add("checkbox-label");
-    labelElement.textContent = todo.text;
-    labelContainer.appendChild(labelElement);
-
-    let deleteIconContainer = document.createElement("div");
-    deleteIconContainer.classList.add("delete-icon-container");
-    labelContainer.appendChild(deleteIconContainer);
-
-    let deleteIcon = document.createElement("i");
-    deleteIcon.classList.add("far", "fa-trash-alt", "delete-icon");
-
-    deleteIcon.onclick = function() {
-        onDeleteTodo(todoId);
-    };
-
-    deleteIconContainer.appendChild(deleteIcon);
-}
-
-for (let todo of todoList) {
-    createAndAppendTodo(todo);
-}
-
-function onAddTodo() {
-    let userInputElement = document.getElementById("todoUserInput");
-    let userInputValue = userInputElement.value;
-
-    if (userInputValue === "") {
-        alert("Enter Valid Text");
+    if (movieTitle === "") {
+        alert("Please enter a movie title");
         return;
     }
 
-    todosCount = todosCount + 1;
+    let movieTitleEl = document.createElement("h1");
+    movieTitleEl.textContent = "Movie Title: " + movieTitle;
+    movieTitleEl.classList.add("movie-title");
+    reviewsContainerEl.appendChild(movieTitleEl);
 
-    let newTodo = {
-        text: userInputValue,
-        uniqueNo: todosCount
-    };
+    let movieReviewEl = document.createElement("p");
+    movieReviewEl.textContent = "Review: " + movieReview;
+    reviewsContainerEl.appendChild(movieReviewEl);
 
-    createAndAppendTodo(newTodo);
-    userInputElement.value = "";
+    let horizontalLineEl = document.createElement("hr");
+    reviewsContainerEl.appendChild(horizontalLineEl);
+
+    titleInputEl.value = "";
+    reviewTextareaEl.value = "";
 }
-
-addTodoButton.onclick = function() {
-    onAddTodo();
-};
