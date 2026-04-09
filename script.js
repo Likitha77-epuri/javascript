@@ -1,123 +1,44 @@
-/* Follow the instructions found in the description to complete the JavaScript functionality.*/
+"use strict";
 
-let todoItemsContainer = document.getElementById("todoItemsContainer");
-let addTodoButton = document.getElementById("addTodoButton");
-let saveTodoButton = document.getElementById("saveTodoButton");
+process.stdin.resume();
+process.stdin.setEncoding("utf-8");
 
-function getTodoListFromLocalStorage() {
-    let stringifiedTodoList = localStorage.getItem("todoList");
-    let parsedTodoList = JSON.parse(stringifiedTodoList);
-    if (parsedTodoList === null) {
-        return [];
-    } else {
-        return parsedTodoList;
-    }
+let inputString = "";
+let currentLine = 0;
+
+process.stdin.on("data", (inputStdin) => {
+  inputString += inputStdin;
+});
+
+process.stdin.on("end", (_) => {
+  inputString = inputString
+    .trim()
+    .split("\n")
+    .map((str) => str.trim());
+
+  main();
+});
+
+function readLine() {
+  return inputString[currentLine++];
 }
 
-let todoList = [{
-        text: "Learn HTML",
-        uniqueNo: 1
-    },
-    {
-        text: "Learn CSS",
-        uniqueNo: 2
-    },
-    {
-        text: "Learn JavaScript",
-        uniqueNo: 3
-    }
-];
+/* Please do not modify anything above this line */
 
-
-let todosCount = todoList.length;
-
-saveTodoButton.onclick = function() {
-    localStorage.setItem("todoList", JSON.stringify(todoList));
-};
-
-function onTodoStatusChange(checkboxId, labelId) {
-    let checkboxElement = document.getElementById(checkboxId);
-    let labelElement = document.getElementById(labelId);
-
-    labelElement.classList.toggle('checked');
+function isValuePresent(myArray, val) {
+  /*
+   * Write your code here and return the output.
+   */
+   return myArray.includes(val);
 }
 
-function onDeleteTodo(todoId) {
-    let todoElement = document.getElementById(todoId);
+/* Please do not modify anything below this line */
 
-    todoItemsContainer.removeChild(todoElement);
+function main() {
+  let myArray = JSON.parse(readLine().replace(/'/g, '"'));
+  let val = JSON.parse(readLine().replace(/'/g, '"'));
+  
+  let isPresent = isValuePresent(myArray, val);
+  
+  console.log(isPresent);
 }
-
-function createAndAppendTodo(todo) {
-    let todoId = 'todo' + todo.uniqueNo;
-    let checkboxId = 'checkbox' + todo.uniqueNo;
-    let labelId = 'label' + todo.uniqueNo;
-
-    let todoElement = document.createElement("li");
-    todoElement.classList.add("todo-item-container", "d-flex", "flex-row");
-    todoElement.id = todoId;
-    todoItemsContainer.appendChild(todoElement);
-
-    let inputElement = document.createElement("input");
-    inputElement.type = "checkbox";
-    inputElement.id = checkboxId;
-
-    inputElement.onclick = function() {
-        onTodoStatusChange(checkboxId, labelId);
-    };
-
-    inputElement.classList.add("checkbox-input");
-    todoElement.appendChild(inputElement);
-
-    let labelContainer = document.createElement("div");
-    labelContainer.classList.add("label-container", "d-flex", "flex-row");
-    todoElement.appendChild(labelContainer);
-
-    let labelElement = document.createElement("label");
-    labelElement.setAttribute("for", checkboxId);
-    labelElement.id = labelId;
-    labelElement.classList.add("checkbox-label");
-    labelElement.textContent = todo.text;
-    labelContainer.appendChild(labelElement);
-
-    let deleteIconContainer = document.createElement("div");
-    deleteIconContainer.classList.add("delete-icon-container");
-    labelContainer.appendChild(deleteIconContainer);
-
-    let deleteIcon = document.createElement("i");
-    deleteIcon.classList.add("far", "fa-trash-alt", "delete-icon");
-
-    deleteIcon.onclick = function() {
-        onDeleteTodo(todoId);
-    };
-
-    deleteIconContainer.appendChild(deleteIcon);
-}
-
-for (let todo of todoList) {
-    createAndAppendTodo(todo);
-}
-
-function onAddTodo() {
-    let userInputElement = document.getElementById("todoUserInput");
-    let userInputValue = userInputElement.value;
-
-    if (userInputValue === "") {
-        alert("Enter Valid Text");
-        return;
-    }
-
-    todosCount = todosCount + 1;
-
-    let newTodo = {
-        text: userInputValue,
-        uniqueNo: todosCount
-    };
-
-    createAndAppendTodo(newTodo);
-    userInputElement.value = "";
-}
-
-addTodoButton.onclick = function() {
-    onAddTodo();
-};
