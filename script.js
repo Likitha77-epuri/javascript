@@ -25,11 +25,16 @@ function readLine() {
 
 /* Please do not modify anything above this line */
 
-function isValuePresent(myArray, val) {
+function findFirstIndexOfValue(myArray, val) {
   /*
    * Write your code here and return the output.
    */
-   return myArray.includes(val);
+   for(let i=0;i<myArray.length;i++){
+       if(myArray[i]===val){
+           return i;
+       }
+   }
+   return -1;
 }
 
 /* Please do not modify anything below this line */
@@ -38,7 +43,7 @@ function main() {
   let myArray = JSON.parse(readLine().replace(/'/g, '"'));
   let val = JSON.parse(readLine().replace(/'/g, '"'));
   
-  let isPresent = isValuePresent(myArray, val);
+  let firstIndexOfVal = findFirstIndexOfValue(myArray, val);
   
-  console.log(isPresent);
+  console.log(firstIndexOfVal);
 }
