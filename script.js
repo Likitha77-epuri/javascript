@@ -25,25 +25,23 @@ function readLine() {
 
 /* Please do not modify anything above this line */
 
-function findFirstIndexOfValue(myArray, val) {
+function findFirstStringOccurrence(myArray) {
   /*
    * Write your code here and return the output.
    */
-   for(let i=0;i<myArray.length;i++){
-       if(myArray[i]===val){
-           return i;
+   for (let i=0;i<myArray.length;i++){
+       if(typeof myArray[i]=="string"){
+           return myArray[i];
        }
    }
-   return -1;
+   return undefined;
 }
 
 /* Please do not modify anything below this line */
 
 function main() {
   let myArray = JSON.parse(readLine().replace(/'/g, '"'));
-  let val = JSON.parse(readLine().replace(/'/g, '"'));
   
-  let firstIndexOfVal = findFirstIndexOfValue(myArray, val);
-  
-  console.log(firstIndexOfVal);
+  let firstStringVal = findFirstStringOccurrence(myArray);
+  console.log(firstStringVal);
 }
