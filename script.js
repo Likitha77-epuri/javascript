@@ -23,22 +23,15 @@ function readLine() {
   return inputString[currentLine++];
 }
 
-/* Please do not modify anything above this line */
-
-function concatenateTwoArrays(firstArray, secondArray) {
-  /*
-   * Write your code here and return the output.
-   */
-   return firstArray.concat(secondArray);
-}
-
-/* Please do not modify anything below this line */
-
 function main() {
-  let firstArray = JSON.parse(readLine().replace(/'/g, '"'));
-  let secondArray = JSON.parse(readLine().replace(/'/g, '"'));
+  let myArray = JSON.parse(readLine().replace(/'/g, '"'));
   
-  let combinedArray = concatenateTwoArrays(firstArray, secondArray);
+  /* Please do not modify anything above this line */
   
-  console.log(combinedArray);
+  /*
+   * Write your code here and log the output.
+   */ 
+   let firstElement=myArray.shift();
+   console.log(firstElement);
+   console.log(myArray);
 }
