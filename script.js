@@ -23,15 +23,21 @@ function readLine() {
   return inputString[currentLine++];
 }
 
+/* Please do not modify anything above this line */
+
+function sortArray(myArray) {
+  /*
+   * Write your code here and return the output.
+   */
+   return myArray.sort();
+}
+
+/* Please do not modify anything below this line */
+
 function main() {
   let myArray = JSON.parse(readLine().replace(/'/g, '"'));
   
-  /* Please do not modify anything above this line */
+  let sortedArray = sortArray(myArray);
   
-  /*
-   * Write your code here and log the output.
-   */ 
-   let firstElement=myArray.shift();
-   console.log(firstElement);
-   console.log(myArray);
+  console.log(sortedArray);
 }
