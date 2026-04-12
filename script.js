@@ -25,19 +25,20 @@ function readLine() {
 
 /* Please do not modify anything above this line */
 
-function sortArray(myArray) {
+function joinArrayValues(myArray, separator) {
   /*
    * Write your code here and return the output.
    */
-   return myArray.sort();
+   return myArray.join(separator)
 }
 
 /* Please do not modify anything below this line */
 
 function main() {
   let myArray = JSON.parse(readLine().replace(/'/g, '"'));
+  let separator =  readLine();
   
-  let sortedArray = sortArray(myArray);
+  let newString = joinArrayValues(myArray, separator);
   
-  console.log(sortedArray);
+  console.log(newString);
 }
