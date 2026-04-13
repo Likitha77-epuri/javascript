@@ -1,41 +1,38 @@
-"use strict";
+let arr = [1, 7, 3, 1, 0, 20, 77];
 
-process.stdin.resume();
-process.stdin.setEncoding("utf-8");
+let startIndexInputEl = document.getElementById("startIndexInput");
+let deleteCountInputEl = document.getElementById("deleteCountInput");
+let itemToAddInputEl = document.getElementById("itemToAddInput");
+let updatedArrayEl = document.getElementById("updatedArray");
+let spliceBtnEl = document.getElementById("spliceBtn");
 
-let inputString = "";
-let currentLine = 0;
-
-process.stdin.on("data", (inputStdin) => {
-  inputString += inputStdin;
-});
-
-process.stdin.on("end", (_) => {
-  inputString = inputString
-    .trim()
-    .split("\n")
-    .map((str) => str.trim());
-
-  main();
-});
-
-function readLine() {
-  return inputString[currentLine++];
+function convertArrtoJSONStringAndAppend() {
+    const stringifiedArr = JSON.stringify(arr);
+    updatedArrayEl.textContent = stringifiedArr;
 }
 
-function main() {
-  let myArray = JSON.parse(readLine().replace(/'/g, '"'));
-  let startIndex = parseInt(readLine());
-  let deleteCount = parseInt(readLine());
-  let firstVal = JSON.parse(readLine().replace(/'/g, '"'));
-  let secondVal = JSON.parse(readLine().replace(/'/g, '"'));
-  
-  /* Please do not modify anything above this line */
-  
-  /*
-   * Write your code here and log the output.
-   */ 
-   myArray.splice(startIndex,deleteCount,firstVal,secondVal);
-   console.log(myArray);
-  
-}
+convertArrtoJSONStringAndAppend();
+
+spliceBtnEl.onclick = function spliceArray() {
+    let startIndex = startIndexInputEl.value;
+    let deleteCount = deleteCountInputEl.value;
+    let itemToAdd = itemToAddInputEl.value;
+
+    if (startIndex === "") {
+        alert("Please enter start Index");
+        return;
+    }
+    if (deleteCount === "") {
+        deleteCount = 0;
+    }
+    if (itemToAdd === "") {
+        arr.splice(parseInt(startIndex), parseInt(deleteCount));
+    } else {
+        arr.splice(parseInt(startIndex), parseInt(deleteCount).itemToAdd);
+    }
+
+    startIndexInputEl.value = "";
+    deleteCountInputEl.value = "";
+    itemToAddInputEl.value = "";
+    convertArrtoJSONStringAndAppend();
+};
