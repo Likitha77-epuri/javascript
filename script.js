@@ -23,22 +23,19 @@ function readLine() {
   return inputString[currentLine++];
 }
 
-/* Please do not modify anything above this line */
-
-function joinArrayValues(myArray, separator) {
-  /*
-   * Write your code here and return the output.
-   */
-   return myArray.join(separator)
-}
-
-/* Please do not modify anything below this line */
-
 function main() {
   let myArray = JSON.parse(readLine().replace(/'/g, '"'));
-  let separator =  readLine();
+  let startIndex = parseInt(readLine());
+  let deleteCount = parseInt(readLine());
+  let firstVal = JSON.parse(readLine().replace(/'/g, '"'));
+  let secondVal = JSON.parse(readLine().replace(/'/g, '"'));
   
-  let newString = joinArrayValues(myArray, separator);
+  /* Please do not modify anything above this line */
   
-  console.log(newString);
+  /*
+   * Write your code here and log the output.
+   */ 
+   myArray.splice(startIndex,deleteCount,firstVal,secondVal);
+   console.log(myArray);
+  
 }
