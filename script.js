@@ -1,38 +1,16 @@
-let arr = [1, 7, 3, 1, 0, 20, 77];
+let numbers = [17, 31, 77, 20, 63];
 
-let startIndexInputEl = document.getElementById("startIndexInput");
-let deleteCountInputEl = document.getElementById("deleteCountInput");
-let itemToAddInputEl = document.getElementById("itemToAddInput");
-let updatedArrayEl = document.getElementById("updatedArray");
-let spliceBtnEl = document.getElementById("spliceBtn");
+let userInputEl = document.getElementById("userInput");
+let indexOfNumberEl = document.getElementById("indexOfNumber");
 
-function convertArrtoJSONStringAndAppend() {
-    const stringifiedArr = JSON.stringify(arr);
-    updatedArrayEl.textContent = stringifiedArr;
+function findIndexOfNumber() {
+    let number = parseInt(userInput.value);
+    let itemIndex = numbers.findIndex(function(eachItem) {
+        if (eachItem === number) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+    indexOfNumberEl.textContent = itemIndex;
 }
-
-convertArrtoJSONStringAndAppend();
-
-spliceBtnEl.onclick = function spliceArray() {
-    let startIndex = startIndexInputEl.value;
-    let deleteCount = deleteCountInputEl.value;
-    let itemToAdd = itemToAddInputEl.value;
-
-    if (startIndex === "") {
-        alert("Please enter start Index");
-        return;
-    }
-    if (deleteCount === "") {
-        deleteCount = 0;
-    }
-    if (itemToAdd === "") {
-        arr.splice(parseInt(startIndex), parseInt(deleteCount));
-    } else {
-        arr.splice(parseInt(startIndex), parseInt(deleteCount).itemToAdd);
-    }
-
-    startIndexInputEl.value = "";
-    deleteCountInputEl.value = "";
-    itemToAddInputEl.value = "";
-    convertArrtoJSONStringAndAppend();
-};
