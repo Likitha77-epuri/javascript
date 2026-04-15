@@ -1,23 +1,18 @@
-let inputEl = document.getElementById("input");
+let msgEl = document.getElementById("msg");
 let saveBtnEl = document.getElementById("saveBtn");
 let clearBtnEl = document.getElementById("clearBtn");
 let storageKey = "userInput";
-
-let storageVal = localStorage.getItem(storageKey);
-
-if (storageVal === null) {
-    localStorage.setItem(storageKey, "Hello");
-}
-
-inputEl.value = localStorage.getItem(storageKey);
-
 saveBtnEl.onclick = function() {
-    let inputVal = inputEl.value;
-    localStorage.setItem(storageKey, inputVal);
+    let msgVal = msgEl.value;
+    localStorage.setItem(storageKey, msgVal);
 };
-
-// Write your code here
 clearBtnEl.onclick = function() {
-    inputEl.value = "";
+    msgEl.value = "";
     localStorage.removeItem(storageKey);
 };
+let storedUserInputVal = localStorage.getItem(storageKey);
+if (storedUserInputVal !== null) {
+    msgEl.value = storedUserInputVal;
+} else {
+    msgEl.value = "";
+}
