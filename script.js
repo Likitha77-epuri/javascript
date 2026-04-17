@@ -1,34 +1,28 @@
-let chatbotMsgList = ["Hi", "Hey", "Good Morning", "Good Evening", "How can I help you?", "Thank You"];
-
-let chatContainerEl = document.getElementById("chatContainer");
+let wordCloud = ["Hello", "hii", "how", "what", "you", "yourself", "name", "victory", "food", "lovely", "beautiful", "written", "where", "who", "awesome"];
+let wordsContainerEl = document.getElementById("wordsContainer");
 let userInputEl = document.getElementById("userInput");
+let errorMsgEl = document.getElementById("errorMsg");
+let errorMsg = "Please enter a word";
 
-function sendMsgToChatbot() {
-    let userMsg = userInputEl.value;
-
-    let msgContainerEl = document.createElement("div");
-    msgContainerEl.classList.add("msg-to-chatbot-container");
-    chatContainerEl.appendChild(msgContainerEl);
-
-    let userMsgEl = document.createElement("span");
-    userMsgEl.textContent = userMsg;
-    userMsg.classList.add("msg-to-chatbot");
-    msgContainerEl.appendChild(userMsgEl);
-
-    userInputEl.value = "";
-    getReplyFromChatbot();
+function createAndAddWordToWordCloud(word) {
+    let randomFontSize = Math.ceil(Math.random() * 40) + "px";
+    let wordEl = document.createElement("span");
+    wordEl.textContent = word;
+    wordEl.style.fontsize = randomFontSize;
+    wordEl.classList.add("m-3");
+    wordsContainerEl.appendChild(wordEl);
+}
+for (let word of wordCloud) {
+    createAndAddWordToWordCloud(word);
 }
 
-function getReplyFromChatbot() {
-    let noOfChatbotMsgs = chatbotMsgList.length;
-    let chatbotMsg = chatbotMsgList[Math.ceil(Math.random() * noOfChatbotMsgs) - 1];
-
-    let msgContainerEl = document.createElement("div");
-    msgContainerEl.classList.add("msg-to-chatbot-container");
-    chatContainerEl.appendChild(msgContainerEl);
-
-    let chatbotMsgEl = document.createElement("span");
-    chatbotMsgEl.textContent = chatbotMsg;
-    chatbotMsgEl.classList.add("msg-from-chatbot");
-    msgContainerEl.appendChild(chatbotMsgEl);
+function onAddWordToWordCloud() {
+    let userEnteredWord = userInputEl.value;
+    if (userEnteredWord !== "") {
+        userInputEl.value = "";
+        errorMsgEl.textContent = "";
+        createAndAddWordToWordCloud(userEnteredWord);
+    } else {
+        errorMsgEl.textContent = errorMsg;
+    }
 }
