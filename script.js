@@ -1,16 +1,31 @@
-let clearBtnEl = document.getElementById("clearBtn");
-    let counterValue = document.getElementById("counterValue");
+let fromUserInputEl = document.getElementById("fromUserInput");
+let toUserInputEl = document.getElementById("toUserInput");
+let counterTextEl = document.getElementById("counterText");
 
-    let counter = 0;
+function displayNumbers(fromCount, toCount) {
+    let currentCount = fromCount;
+    counterTextEl.textContent = currentCount;
 
-    let counterTimer = function() {
-        counter = counter + 1;
-        counterValue.textContent = counter;
-    };
+    let timerId = setInterval(function() {
+        if (currentCount < toCount) {
+            currentCount += 1;
+        } else {
+            clearInterval(timerId);
+        }
+    }, 1000);
+}
 
-    let intervalId = setInterval(counterTimer, 1000);
+function onClickStart() {
+    let fromVal = fromUserInputEl.value;
+    let toVal = toUserInputEl.value;
+    if (fromVal === "") {
+        alert("Enter the from value");
+    } else if (toVal === "") {
+        alert("Enter the to value");
+    } else {
+        let fromValInteger = parseInt(fromVal);
+        let toValInteger = parseInt(toVal);
 
-    // Write your code here
-    clearBtnEl.onclick = function() {
-        clearInterval(intervalId);
-    };
+        displayNumbers(fromValInteger, toValInteger);
+    }
+}
