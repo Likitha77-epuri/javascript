@@ -1,28 +1,16 @@
-let wordCloud = ["Hello", "hii", "how", "what", "you", "yourself", "name", "victory", "food", "lovely", "beautiful", "written", "where", "who", "awesome"];
-let wordsContainerEl = document.getElementById("wordsContainer");
-let userInputEl = document.getElementById("userInput");
-let errorMsgEl = document.getElementById("errorMsg");
-let errorMsg = "Please enter a word";
+let clearBtnEl = document.getElementById("clearBtn");
+    let counterValue = document.getElementById("counterValue");
 
-function createAndAddWordToWordCloud(word) {
-    let randomFontSize = Math.ceil(Math.random() * 40) + "px";
-    let wordEl = document.createElement("span");
-    wordEl.textContent = word;
-    wordEl.style.fontsize = randomFontSize;
-    wordEl.classList.add("m-3");
-    wordsContainerEl.appendChild(wordEl);
-}
-for (let word of wordCloud) {
-    createAndAddWordToWordCloud(word);
-}
+    let counter = 0;
 
-function onAddWordToWordCloud() {
-    let userEnteredWord = userInputEl.value;
-    if (userEnteredWord !== "") {
-        userInputEl.value = "";
-        errorMsgEl.textContent = "";
-        createAndAddWordToWordCloud(userEnteredWord);
-    } else {
-        errorMsgEl.textContent = errorMsg;
-    }
-}
+    let counterTimer = function() {
+        counter = counter + 1;
+        counterValue.textContent = counter;
+    };
+
+    let intervalId = setInterval(counterTimer, 1000);
+
+    // Write your code here
+    clearBtnEl.onclick = function() {
+        clearInterval(intervalId);
+    };
