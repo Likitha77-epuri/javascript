@@ -1,31 +1,49 @@
-let fromUserInputEl = document.getElementById("fromUserInput");
-let toUserInputEl = document.getElementById("toUserInput");
-let counterTextEl = document.getElementById("counterText");
+let twentySecondsBtnEl = document.getElementById("twentySecondsBtn");
+let thirtySecondsBtnEl = document.getElementById("thirtySecondsBtn");
+let fortySecondsBtnEl = document.getElementById("fortySecondsBtn");
+let oneMinuteBtnEl = document.getElementById("oneMinuteBtn");
+let timerTextEl = document.getElementById("timerText");
 
-function displayNumbers(fromCount, toCount) {
-    let currentCount = fromCount;
-    counterTextEl.textContent = currentCount;
+let secondsLeft = 0;
+let timerCompletedText = "Your moment is complete";
+let timerId;
 
-    let timerId = setInterval(function() {
-        if (currentCount < toCount) {
-            currentCount += 1;
-        } else {
-            clearInterval(timerId);
-        }
-    }, 1000);
+function clearPreviousTimers() {
+    clearInterval(timerId);
 }
 
-function onClickStart() {
-    let fromVal = fromUserInputEl.value;
-    let toVal = toUserInputEl.value;
-    if (fromVal === "") {
-        alert("Enter the from value");
-    } else if (toVal === "") {
-        alert("Enter the to value");
-    } else {
-        let fromValInteger = parseInt(fromVal);
-        let toValInteger = parseInt(toVal);
+twentySecondsBtnEl.onclick = function() {
+    secondsLeft = 20;
+    clearPreviousTimers();
+    setTimerAndShow();
+};
+thirtySecondsBtnEl.onclick = function() {
+    secondsLeft = 30;
+    clearPreviousTimers();
+    setTimerAndShow();
+};
+fortySecondsBtnEl.onclick = function() {
+    secondsLeft = 40;
+    clearPreviousTimers();
+    setTimerAndShow();
+};
+oneMinuteBtnEl.onclick = function() {
+    secondsLeft = 60;
+    clearPreviousTimers();
+    setTimerAndShow();
+};
 
-        displayNumbers(fromValInteger, toValInteger);
+function setTimerAndShow() {
+    timerTextEl.textContent = secondsLeft + " seconds left";
+    timerId = setInterval(startTimer, 1000);
+}
+
+function startTimer() {
+    if (secondsLeft > 1) {
+        secondsLeft = secondsLeft - 1;
+        timerTextEl.textContent = secondsLeft + " seconds left";
+    } else {
+        clearPreviousTimers();
+        timerTextEl.textContent = timerCompletedText;
     }
 }
