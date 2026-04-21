@@ -1,49 +1,24 @@
-let twentySecondsBtnEl = document.getElementById("twentySecondsBtn");
-let thirtySecondsBtnEl = document.getElementById("thirtySecondsBtn");
-let fortySecondsBtnEl = document.getElementById("fortySecondsBtn");
-let oneMinuteBtnEl = document.getElementById("oneMinuteBtn");
-let timerTextEl = document.getElementById("timerText");
+let bgContainerEl = document.getElementById("bgContainer");
+let themeUserInputEl = document.getElementById("themeUserInput");
+let headingEl = document.getElementById("heading");
 
-let secondsLeft = 0;
-let timerCompletedText = "Your moment is complete";
-let timerId;
+let lightThemeImgUrl = "url('https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/change-theme-light-bg.png')";
+let darkThemeImgUrl = "url('https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/change-theme-dark-bg.png')";
 
-function clearPreviousTimers() {
-    clearInterval(timerId);
-}
+function changeTheme(event) {
+    if (event.key === "Enter") {
+        let themeUserInputVal = themeUserInputEl.value;
 
-twentySecondsBtnEl.onclick = function() {
-    secondsLeft = 20;
-    clearPreviousTimers();
-    setTimerAndShow();
-};
-thirtySecondsBtnEl.onclick = function() {
-    secondsLeft = 30;
-    clearPreviousTimers();
-    setTimerAndShow();
-};
-fortySecondsBtnEl.onclick = function() {
-    secondsLeft = 40;
-    clearPreviousTimers();
-    setTimerAndShow();
-};
-oneMinuteBtnEl.onclick = function() {
-    secondsLeft = 60;
-    clearPreviousTimers();
-    setTimerAndShow();
-};
-
-function setTimerAndShow() {
-    timerTextEl.textContent = secondsLeft + " seconds left";
-    timerId = setInterval(startTimer, 1000);
-}
-
-function startTimer() {
-    if (secondsLeft > 1) {
-        secondsLeft = secondsLeft - 1;
-        timerTextEl.textContent = secondsLeft + " seconds left";
-    } else {
-        clearPreviousTimers();
-        timerTextEl.textContent = timerCompletedText;
+        if (themeUserInputVal === "Light") {
+            bgContainerEl.style.backgroundImage = lightThemeImgUrl;
+            headingEl.style.color = "#014d40";
+        } else if (themeUserInputVal === "Dark") {
+            bgContainerEl.style.backgroundImage = darkThemeImgUrl;
+            headingEl.style.color = "#ffffff";
+        } else {
+            alert("Enter the valid theme");
+        }
     }
 }
+
+themeUserInputEl.addEventListener("keydown", changeTheme);
