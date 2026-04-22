@@ -1,24 +1,15 @@
-let bgContainerEl = document.getElementById("bgContainer");
-let themeUserInputEl = document.getElementById("themeUserInput");
-let headingEl = document.getElementById("heading");
+let userInputEl = document.getElementById("userInput");
+let keyCodeListEl = document.getElementById("keyCodeList");
 
-let lightThemeImgUrl = "url('https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/change-theme-light-bg.png')";
-let darkThemeImgUrl = "url('https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/change-theme-dark-bg.png')";
-
-function changeTheme(event) {
-    if (event.key === "Enter") {
-        let themeUserInputVal = themeUserInputEl.value;
-
-        if (themeUserInputVal === "Light") {
-            bgContainerEl.style.backgroundImage = lightThemeImgUrl;
-            headingEl.style.color = "#014d40";
-        } else if (themeUserInputVal === "Dark") {
-            bgContainerEl.style.backgroundImage = darkThemeImgUrl;
-            headingEl.style.color = "#ffffff";
-        } else {
-            alert("Enter the valid theme");
-        }
-    }
+function createAndAppendKeyCode(keyCode) {
+    let listItemEl = document.createElement("li");
+    listItemEl.classList.add("mt-1");
+    listItemEl.textContent = keyCode;
+    keyCodeListEl.appendChild(listItemEl);
 }
 
-themeUserInputEl.addEventListener("keydown", changeTheme);
+function onKeydown(event) {
+    createAndAppendKeyCode(event.keyCode);
+}
+
+userInputEl.addEventListener("keydown", onKeydown);
