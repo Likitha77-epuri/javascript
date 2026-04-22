@@ -1,15 +1,22 @@
-let userInputEl = document.getElementById("userInput");
-let keyCodeListEl = document.getElementById("keyCodeList");
+let defuserEl = document.getElementById("defuser");
+let timerEl = document.getElementById("timer");
 
-function createAndAppendKeyCode(keyCode) {
-    let listItemEl = document.createElement("li");
-    listItemEl.classList.add("mt-1");
-    listItemEl.textContent = keyCode;
-    keyCodeListEl.appendChild(listItemEl);
-}
+let countdown = 10;
+let intervalId = setInterval(function() {
+    countdown = countdown - 1
+    timerEl.textContent = countdown;
 
-function onKeydown(event) {
-    createAndAppendKeyCode(event.keyCode);
-}
+    if (countdown === 0) {
+        timerEl.textContent = "BOOM";
+        clearInterval(intervalId);
+    }
+}, 1000);
 
-userInputEl.addEventListener("keydown", onKeydown);
+defuserEl.addEventListener("keydown", function(event) {
+    let bombDefuserText = defuserEl.value;
+
+    if (event.key === "Enter" && bombDefuserText === "defuse" && countdown !== 0) {
+        timerEl.textContent = "You did it!";
+        clearInterval(intervalId);
+    }
+});
