@@ -1,22 +1,18 @@
-let defuserEl = document.getElementById("defuser");
-let timerEl = document.getElementById("timer");
+let convertBtnEl = document.getElementById("convertBtn");
 
-let countdown = 10;
-let intervalId = setInterval(function() {
-    countdown = countdown - 1
-    timerEl.textContent = countdown;
+convertBtnEl.addEventListener("click", function getSeconds() {
+    let hoursInputEl = parseInt(document.getElementById("hoursInput").value)
+    let minutesInputEl = parseInt(document.getElementById("minutesInput").value)
+    let seconds = ((hoursInputEl) * 60 + minutesInputEl) * 60
 
-    if (countdown === 0) {
-        timerEl.textContent = "BOOM";
-        clearInterval(intervalId);
+    let errMsgEl = document.getElementById("errorMsg")
+    let showSeconds = document.getElementById("timeInSeconds")
+
+    if (isNaN(hoursInputEl) || isNaN(minutesInputEl)) {
+        errMsgEl.textContent = "please enter any value";
+        errMsgEl.style.color = "#f7faf5";
+    } else {
+        showSeconds.textContent = seconds;
+        showSeconds.style.color = "#ffffff";
     }
-}, 1000);
-
-defuserEl.addEventListener("keydown", function(event) {
-    let bombDefuserText = defuserEl.value;
-
-    if (event.key === "Enter" && bombDefuserText === "defuse" && countdown !== 0) {
-        timerEl.textContent = "You did it!";
-        clearInterval(intervalId);
-    }
-});
+})
