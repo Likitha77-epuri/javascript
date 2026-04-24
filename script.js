@@ -1,7 +1,5 @@
 let options = {
-  method: "GET",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(data)
+  method: "GET"
 };
+
+fetch("https://gorest.co.in/public-api/users", options);
