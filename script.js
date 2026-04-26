@@ -1,12 +1,9 @@
 let data = {
-  name: "Rahul",
-  gender: "Male",
-  email: "rahul@gmail.com",
-  status: "Active"
+  name: "Rahul Attuluri"
 };
 
 let options = {
-  method: "POST",
+  method: "PUT",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -15,7 +12,7 @@ let options = {
   body: JSON.stringify(data)
 };
 
-fetch("https://gorest.co.in/public-api/users", options)
+fetch("https://gorest.co.in/public-api/users/1359", options)
   .then(function(response) {
     return response.json();
   })
