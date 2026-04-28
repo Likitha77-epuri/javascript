@@ -1,16 +1,23 @@
+let jokeTextEl = document.getElementById("jokeText");
+let spinnerEl = document.getElementById("spinner");
+let jokeBtnEl = document.getElementById("jokeBtn");
+
 let options = {
-  method: "DELETE",
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-    Authorization: "Bearer ACCESS-TOKEN"
-  }
+    method: "GET"
 };
 
-fetch("https://gorest.co.in/public-api/users/1359", options)
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(jsonData) {
-    console.log(jsonData);
-  });
+function getRandomJoke() {
+    spinnerEl.classList.remove("d-none");
+    jokeTextEl.classList.add("d-none");
+    fetch("https://apis.ccbp.in/jokes/random", options)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(jsonData) {
+            let randomJoke = jsonData.value;
+            spinnerEl.classList.add("d-none");
+            jokeTextEl.classList.remove("d-none");
+            jokeBtnEl.textContent = randomJoke;
+        });
+}
+jokeBtnEl.addEventListener("click", getRandomJoke);
