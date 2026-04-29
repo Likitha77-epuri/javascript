@@ -1,72 +1,68 @@
 let searchInputEl = document.getElementById("searchInput");
-let searchResultsEl = document.getElementById("searchResults");
 let spinnerEl = document.getElementById("spinner");
+let resultCountriesEl = document.getElementById("resultCountries");
 
-function createAndAppendSearchResult(result) {
-    let {
-        link,
-        title,
-        description
-    } = result;
-    let resultItemEl = document.createElement("div");
-    resultItemEl.classList.add("result-item");
+let searchInputVal = "";
+let countriesList = [];
 
-    let titleEl = document.createElement("a");
-    titleEl.href = link;
-    titleEl.target = "_blank";
-    titleEl.textContent = title;
-    titleEl.classList.add("result-title");
-    resultItemEl.appendChild(titleEl);
+function createAndAppendCountry(country) {
+    let countryEl = document.createElement("div");
+    countryEl.classList.add("country-card", "col-11", "col-md-5", "mr-auto", "ml-auto", "d-flex", "flex-row");
+    resultCountriesEl.appendChild(countryEl);
 
-    let titleBreakEl = document.createElement("br");
-    resultItemEl.appendChild(titleBreakEl);
+    let countryFlagEl = document.createElement("img");
+    countryFlagEl.src = country.flag;
+    countryFlagEl.classList.add("country-flag", "mt-auto", "mb-auto");
+    countryEl.appendChild(countryFlagEl);
 
-    let urlEl = document.createElement("a");
-    urlEl.classList.add("result-url");
-    urlEl.href = link;
-    urlEl.target = "_blank";
-    urlEl.textContent = link;
-    resultItemEl.appendChild(urlEl);
+    let countryInfoEl = document.createElement("div");
+    countryInfoEl.classList.add("d-flex", "flex-column", "ml-4");
+    countryEl.appendChild(countryInfoEl);
 
-    let linkBreakEl = document.createElement("br");
-    resultItemEl.appendChild(linkBreakEl);
+    let countryNameEl = document.createElement("p");
+    countryNameEl.textContent = country.name;
+    countryNameEl.classList.add("country-name");
+    countryInfoEl.appendChild(countryNameEl);
 
-    let descriptionEl = document.createElement("p");
-    descriptionEl.classList.add("link-description");
-    descriptionEl.textContent = description;
-    resultItemEl.appendChild(descriptionEl);
-
-    searchResultsEl.appendChild(resultItemEl);
+    let countryPopulationEl = document.createElement("p");
+    countryPopulationEl.textContent = country.population;
+    countryPopulationEl.classList.add("country-population");
+    countryInfoEl.appendChild(countryPopulationEl);
 }
 
-function displayResults(searchResults) {
-    spinnerEl.classList.add("d-none");
+function displaySearchResults() {
+    resultCountriesEl.textContent = "";
+    for (let country of countriesList) {
 
-    for (let result of searchResults) {
-        createAndAppendSearchResult(result);
+        let countryName = country.name;
+
+        if (countryName.includes(searchInputVal)) {
+            createAndAppendCountry(country);
+        }
     }
 }
 
-function searchWikipedia(event) {
-    if (event.key === "Enter") {
-        spinnerEl.classList.remove("d-none");
-        searchResultsEl.textContent = "";
+function getCountries() {
+    let url = "https://apis.ccbp.in/countries-data";
+    let options = {
+        method: "GET",
+    };
 
-        let searchInput = searchInputEl.value;
-        let url = "https://apis.ccbp.in/wiki-search?search=" + searchInput;
-        let options = {
-            method: "GET"
-        };
-        fetch(url, options)
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(jsonData) {
-                let {
-                    search_results
-                } = jsonData;
-                displayResults(search_results);
-            });
-    }
+    spinnerEl.classList.remove("d-none");
+    fetch(url, options)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(jsonData) {
+            spinnerEl.classList.add("d-none");
+            countriesList = jsonData;
+            displaySearchResults();
+        });
 }
-searchInputEl.addEventListener("keydown", searchWikipedia);
+
+function onChangeSearchInput(event) {
+    searchInputVal = event.target.value;
+    displaySearchResults();
+}
+getCountries();
+searchInputEl.addEventListener("keyup", onChangeSearchInput);
