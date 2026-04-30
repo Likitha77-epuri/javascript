@@ -1,37 +1,31 @@
-let userInputEl = document.getElementById('userInput');
-let spinnerEl = document.getElementById("spinner");
-let factEl = document.getElementById("fact");
+let sendGetRequestBtnEl = document.getElementById("sendGetRequestBtn");
+let loadingEl = document.getElementById("loading");
+let requestStatusEl = document.getElementById("requestStatus");
+let httpResponseEl = document.getElementById("httpResponse");
 
-function getFactOfEneteredNumber(event) {
-    if (event.key === "Enter") {
-        let userInputVal = userInputEl.value;
+function sendGetHTTPRequest() {
+    let requestUrl = "https://gorest.in/public/v2/users";
+    let options = {
+        method: "GET",
+    };
 
-        if (userInputVal === "") {
-            alert("Enter a Number");
-            return;
-        }
 
-        let url = "https://apis.ccbp.in/numbers-fact?number=" + userInputVal;
-        let options = {
-            method: "GET"
-        };
+    loadingEl.classList.remove("d-none");
+    requestStatusEl.classList.add("d-none");
 
-        spinnerEl.classList.remove("d-none");
-        factEl.classList.add("d-none");
+    fetch(requestUrl, options)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(jsonData) {
+            requestStatusEl.classList.remove("d-none");
+            loadingEl.classList.add("d-none");
 
-        fetch(url, options)
-            .then(function(response) {
-                return response.json();
-            })
-            .then(function(jsonData) {
-                factEl.classList.remove("d-none");
-                spinnerEl.classList.add("d-none");
-
-                let {
-                    fact
-                } = jsonData;
-                factEl.textContent = fact;
-            });
-    }
+            let requestStatus = jsonData.code;
+            let httpResponse = JSON.stringify(jsonData);
+            requestStatusEl.textContent = requestStatus;
+            httpResponseEl.textContent = httpResponse;
+        });
 }
-userInputEl.addEventListener("keyup", getFactOfEneteredNumber);
+
+sendGetRequestBtnEl.addEventListener("click", sendGetHTTPRequest);
