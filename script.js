@@ -1,28 +1,30 @@
+let userInputEl = document.getElementById('userInput');
 let requestBodyEl = document.getElementById("requestBody");
-let sendPostRequestBtnEl = document.getElementById("sendPostRequestBtn");
-let loadingEl = document.getElementById("loading");
+let sendPutRequestBtnEl = document.getElementById("sendPutRequestBtn");
 let requestStatusEl = document.getElementById("requestStatus");
 let httpResponseEl = document.getElementById("httpResponse");
+let loadingEl = document.getElementById("loading");
 
-function sendPostHTTPRequest() {
-    let requestUrl = "https://gorest.in/public/v2/users";
+function sendPutHTTPRequest() {
+    let userId = userInputEl.value;
+    let url = "https://gorest.in/public/v2/users/" + userId; // include userId in URL
     let requestBody = requestBodyEl.value;
     let options = {
-        method: "POST",
-        headers: {
+        method: "PUT",
+        headers: { // ✅ lowercase
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: "Bearer 88d52bbcb1d08c8abc4749b31118796c1f44c633b20b9a4c4bfb18e01d1b3f0",
+            Authorization: "Bearer 88d52bbcb1d08c8abc4749b31118796c1f44c633b20b9a4c4bfb18e01d1b3f0"
         },
         body: requestBody
     };
+
     loadingEl.classList.remove("d-none");
     requestStatusEl.classList.add("d-none");
 
-    fetch(requestUrl, options)
+    fetch(url, options)
         .then(function(response) {
-            // Save the status code
-            let statusCode = response.status;
+            let statusCode = response.status; // ✅ capture status
             return response.json().then(function(jsonData) {
                 return {
                     statusCode,
@@ -34,10 +36,10 @@ function sendPostHTTPRequest() {
             requestStatusEl.classList.remove("d-none");
             loadingEl.classList.add("d-none");
 
-            // Show the actual HTTP status code
+            // ✅ show actual HTTP status
             requestStatusEl.textContent = result.statusCode;
 
-            // Show the full JSON response
+            // ✅ show full JSON response
             httpResponseEl.textContent = JSON.stringify(result.jsonData, null, 2);
         })
         .catch(function(error) {
@@ -48,4 +50,4 @@ function sendPostHTTPRequest() {
         });
 }
 
-sendPostRequestBtnEl.addEventListener("click", sendPostHTTPRequest);
+sendPutRequestBtnEl.addEventListener("click", sendPutHTTPRequest);
