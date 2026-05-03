@@ -1,34 +1,23 @@
-let userInputEl = document.getElementById('userInput');
-let sendDeleteRequestBtnEl = document.getElementById("sendDeleteRequestBtn");
-let requestStatusEl = document.getElementById("requestStatus");
-let httpResponseEl = document.getElementById("httpResponse");
-let loadingEl = document.getElementById("loading");
+let jokeTextEl = document.getElementById("jokeText");
+let spinnerEl = document.getElementById("spinner");
+let jokeBtnEl = document.getElementById("jokeBtn");
 
-function sendDeleteHTTPRequest() {
-    let userInput = userInputEl.value;
-    let url = "https://gorest.in/public/v2/users" + userInput;
-    let options = {
-        method: "DELETE",
-        Headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-        }
-    };
-    loadingEl.classList.remove("d-none");
-    requestStatusEl.classList.add("d-none");
+let options = {
+    method: "GET"
+};
 
-    fetch(url, options)
+function getRandomJoke() {
+    spinnerEl.classList.remove("d-none");
+    jokeTextEl.classList.add("d-none");
+    fetch("https://apis.ccbp.in/jokes/random", options)
         .then(function(response) {
             return response.json();
         })
         .then(function(jsonData) {
-            requestStatusEl.classList.remove("d-none");
-            loadingEl.classList.add("d-none");
-
-            let requestStatus = jsonData.code;
-            let httpResponse = JSON.stringify(jsonData);
-            requestStatusEl.textContent = requestStatus;
-            httpResponseEl.textContent = httpResponse;
+            let randomJoke = jsonData.value;
+            spinnerEl.classList.add("d-none");
+            jokeTextEl.classList.remove("d-none");
+            jokeBtnEl.textContent = randomJoke;
         });
 }
-sendDeleteRequestBtnEl.addEventListener("click", sendDeleteHTTPRequest);
+jokeBtnEl.addEventListener("click", getRandomJoke);
