@@ -1,5 +1,5 @@
-let myFormEl = document.getElementById("myForm");
+let nameEl = document.getElementById("name");
 
-myFormEl.addEventListener("submit", function(event) {
-  event.preventDefault();
+nameEl.addEventListener("blur", function(event) {
+  console.log("blur event triggered");
 });
