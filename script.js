@@ -1,40 +1,30 @@
-let subscribeFormEl = document.getElementById("subscribeForm");
-let nameEl = document.getElementById("name");
-let nameErrMsgEl = document.getElementById("nameErrMsg");
-let emailEl = document.getElementById("email");
-let emailErrMsgEl = document.getElementById("emailErrMsg");
-let errorMsg = "Required*";
+let updatePasswordFormEl = document.getElementById("updatePasswordForm");
+let newPasswordEl = document.getElementById("newPassword");
+let confirmPasswordEl = document.getElementById("confirmPassword");
+let newPasswordErrMsgEl = document.getElementById("newPasswordErrMsg");
+let confirmPasswordErrMsgEl = document.getElementById("confirmPasswordErrMsg");
 
-nameEl.addEventListener("blur", function(event) {
-    if (event.target.value === "") {
-        nameErrMsgEl.textContent = errorMsg;
+let validateNewPassword = function() {
+    if (newPasswordEl.value === "") {
+        newPasswordErrMsgEl.textContent = "Required*";
     } else {
-        nameErrMsgEl.textContent = "";
+        newPasswordErrMsgEl.textContent = "";
     }
-});
-emailEl.addEventListener("blur", function(event) {
-    if (event.target.value === "") {
-        emailErrMsgEl.textContent = errorMsg;
+};
+
+let validateConfirmPassword = function() {
+    let newPassword = newPasswordEl.value;
+    let confirmPassword = confirmPasswordEl.value;
+    if (newPassword !== confirmPassword) {
+        confirmPasswordErrMsgEl.textContent = "Passwords must be same";
     } else {
-        emailErrMsgEl.textContent = "";
+        confirmPasswordErrMsgEl.textContent = "";
     }
-});
-subscribeFormEl.addEventListener("submit", function(event) {
+}
+newPasswordEl.addEventListener("blur", validateNewPassword);
+confirmPasswordEl.addEventListener("blur", validateConfirmPassword);
+updatePasswordFormEl.addEventListener("submit", function(event) {
+    validateNewPassword();
+    validateConfirmPassword();
     event.preventDefault();
-    let isValid = true;
-    if (nameEl.value === "") {
-        nameErrMsgEl.textContent = errorMsg;
-        isValid = false;
-    } else {
-        nameErrMsgEl.textContent = "";
-    }
-    if (emailEl.value === "") {
-        emailErrMsgEl.textContent = errorMsg;
-        isValid = false;
-    } else {
-        emailErrMsgEl.textContent = "";
-    }
-    if (isValid) {
-        alert("Form Submitted Successfully");
-    }
 });
