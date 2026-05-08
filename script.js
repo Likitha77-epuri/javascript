@@ -1,30 +1,15 @@
-let updatePasswordFormEl = document.getElementById("updatePasswordForm");
-let newPasswordEl = document.getElementById("newPassword");
-let confirmPasswordEl = document.getElementById("confirmPassword");
-let newPasswordErrMsgEl = document.getElementById("newPasswordErrMsg");
-let confirmPasswordErrMsgEl = document.getElementById("confirmPasswordErrMsg");
-
-let validateNewPassword = function() {
-    if (newPasswordEl.value === "") {
-        newPasswordErrMsgEl.textContent = "Required*";
-    } else {
-        newPasswordErrMsgEl.textContent = "";
-    }
+let petsImageUrls = {
+    dog: "https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/select-your-pet-dog-img.png",
+    cat: "https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/select-your-pet-cat-img.png",
+    parrot: "https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/select-your-pet-parrot-img.png",
+    spider: "https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/select-your-pet-spider-img.png",
+    rabbit: "https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/select-your-pet-rabbit-img.png"
 };
+let petSelectEl = document.getElementById("petSelect");
+let petImgEl = document.getElementById("petImg");
 
-let validateConfirmPassword = function() {
-    let newPassword = newPasswordEl.value;
-    let confirmPassword = confirmPasswordEl.value;
-    if (newPassword !== confirmPassword) {
-        confirmPasswordErrMsgEl.textContent = "Passwords must be same";
-    } else {
-        confirmPasswordErrMsgEl.textContent = "";
-    }
-}
-newPasswordEl.addEventListener("blur", validateNewPassword);
-confirmPasswordEl.addEventListener("blur", validateConfirmPassword);
-updatePasswordFormEl.addEventListener("submit", function(event) {
-    validateNewPassword();
-    validateConfirmPassword();
-    event.preventDefault();
+petSelectEl.addEventListener("change", function(event) {
+    let selectedPet = event.target.value;
+    let selectedPetImgUrl = petsImageUrls[selectedPet];
+    petImgEl.src = selectedPetImgUrl;
 });
