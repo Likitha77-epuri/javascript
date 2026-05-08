@@ -1,27 +1,40 @@
-let myFormEl = document.getElementById("myForm");
-
+let subscribeFormEl = document.getElementById("subscribeForm");
 let nameEl = document.getElementById("name");
 let nameErrMsgEl = document.getElementById("nameErrMsg");
-
 let emailEl = document.getElementById("email");
 let emailErrMsgEl = document.getElementById("emailErrMsg");
+let errorMsg = "Required*";
 
 nameEl.addEventListener("blur", function(event) {
-  if (event.target.value === "") {
-    nameErrMsgEl.textContent = "Required*";
-  } else {
-    nameErrMsgEl.textContent = "";
-  }
+    if (event.target.value === "") {
+        nameErrMsgEl.textContent = errorMsg;
+    } else {
+        nameErrMsgEl.textContent = "";
+    }
 });
-
 emailEl.addEventListener("blur", function(event) {
-  if (event.target.value === "") {
-    emailErrMsgEl.textContent = "Required*";
-  } else {
-    emailErrMsgEl.textContent = "";
-  }
+    if (event.target.value === "") {
+        emailErrMsgEl.textContent = errorMsg;
+    } else {
+        emailErrMsgEl.textContent = "";
+    }
 });
-
-myFormEl.addEventListener("submit", function(event) {
-  event.preventDefault();
+subscribeFormEl.addEventListener("submit", function(event) {
+    event.preventDefault();
+    let isValid = true;
+    if (nameEl.value === "") {
+        nameErrMsgEl.textContent = errorMsg;
+        isValid = false;
+    } else {
+        nameErrMsgEl.textContent = "";
+    }
+    if (emailEl.value === "") {
+        emailErrMsgEl.textContent = errorMsg;
+        isValid = false;
+    } else {
+        emailErrMsgEl.textContent = "";
+    }
+    if (isValid) {
+        alert("Form Submitted Successfully");
+    }
 });
