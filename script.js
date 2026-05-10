@@ -1,15 +1,36 @@
-let petsImageUrls = {
-    dog: "https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/select-your-pet-dog-img.png",
-    cat: "https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/select-your-pet-cat-img.png",
-    parrot: "https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/select-your-pet-parrot-img.png",
-    spider: "https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/select-your-pet-spider-img.png",
-    rabbit: "https://d2clawv67efefq.cloudfront.net/ccbp-dynamic-webapps/select-your-pet-rabbit-img.png"
-};
-let petSelectEl = document.getElementById("petSelect");
-let petImgEl = document.getElementById("petImg");
+let questionsFormEl = document.getElementById('questionsForm');
+let cityHyderabadEl = document.getElementById("cityHyderabad");
+let cityChennaiEl = document.getElementById("cityChennai");
+let cityDelhiEl = document.getElementById("cityDelhi");
+let cityMumbaiEl = document.getElementById("cityMumbai");
+let submitBtnEl = document.getElementById("submitBtn");
+let resultMsgEl = document.getElementById("resultMsg");
 
-petSelectEl.addEventListener("change", function(event) {
-    let selectedPet = event.target.value;
-    let selectedPetImgUrl = petsImageUrls[selectedPet];
-    petImgEl.src = selectedPetImgUrl;
+let capitalCity = "Delhi";
+let selectedCity = null;
+
+cityHyderabadEl = addEventListener("change", function(event) {
+    selectedCity = event.target.value;
+});
+cityChennaiEl = addEventListener("change", function(event) {
+    selectedCity = event.target.value;
+});
+cityDelhiEl = addEventListener("change", function(event) {
+    selectedCity = event.target.value;
+});
+cityMumbaiEl = addEventListener("change", function(event) {
+    selectedCity = event.target.value;
+});
+questionsFormEl.addEventListener("submit", function(event) {
+    event.preventDefault();
+    if (selectedCity === null) {
+        resultMsgEl.textContent = "Please select the City!";
+        resultMsgEl.style.color = "#dc3545";
+    } else if (selectedCity === capitalCity) {
+        resultMsgEl.textContent = "Correct Answer!";
+        resultMsgEl.style.color = "#2b9a40";
+    } else {
+        resultMsgEl.textContent = "Wrong Answer!";
+        resultMsgEl.style.color = "#dc3545";
+    }
 });
