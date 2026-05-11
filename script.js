@@ -1,98 +1,61 @@
-let addUserFormEl = document.getElementById("addUserForm");
-let nameEl = document.getElementById("name");
-let emailEl = document.getElementById("email");
-let nameErrMsgEl = document.getElementById("nameErrMsg");
-let emailErrMsgEl = document.getElementById("emailErrMsg");
-let statusEl = document.getElementById("status");
-let genderMaleEl = document.getElementById("genderMale");
-let genderFemaleEl = document.getElementById("genderFemale");
+let consoleFormEl = document.getElementById("consoleForm");
+let requestUrlEl = document.getElementById("requestUrl");
+let responseStatusEl = document.getElementById("responseStatus");
+let requestUrlErrMsgEl = document.getElementById("requestUrlErrMsg");
+let requestMethodEl = document.getElementById("requestMethod");
+let requestBodyEl = document.getElementById("requestBody");
+let responseBodyEl = document.getElementById("responseBody");
 
-let formData = {
-    name: "",
-    email: "",
-    status: "Active",
-    gender: "male"
-};
-nameEl.addEventListener("change", function(event) {
-    if (event.target.value === "") {
-        nameErrMsgEl.textContent = "Required*";
+function checkRequestUrl() {
+    if (requestUrlEl.value === "") {
+        requestUrlErrMsgEl.textContent = "Required*";
+        requestUrlErrMsgEl.classList.add("error-message");
     } else {
-        nameErrMsgEl.textContent = "";
+        requestUrlErrMsgEl.textContent = "";
     }
-    formData.name = event.target.value;
-});
-emailEl.addEventListener("change", function(event) {
-    if (event.target.value === "") {
-        emailErrMsgEl.textContent = "Required*";
-    } else {
-        emailErrMsgEl.textContent = "";
-    }
-    formData.email = event.target.value;
-});
-statusEl.addEventListener("change", function(event) {
-    formData.status = event.target.value;
-});
-genderMaleEl.addEventListener("change", function(event) {
-    formData.gender = event.target.value;
-});
-genderFemaleEl.addEventListener("change", function(event) {
-    formData.gender = event.target.value;
-});
-
-function validateFormData(formData) {
-    let {
-        name,
-        email
-    } = formData;
-    let isValid = true;
-    if (name === "") {
-        nameErrMsgEl.textContent = "Required*";
-        isValid = false;
-    } else {
-        nameErrMsgEl.textContent = "";
-    }
-    if (email === "") {
-        emailErrMsgEl.textContent = "Required*";
-        isValid = false;
-    } else {
-        emailErrMsgEl.textContent = "";
-    }
-    return isValid;
 }
+let formData = {
+    requestUrl: "https://gorest.co.in/public-api/users",
+    requestMethod: "POST",
+    requestBody: ""
+}
+requestUrlEl.addEventListener("change", function(event) {
+    formData.requestUrl = event.target.value;
+});
+requestMethodEl.addEventListener("change", function(event) {
+    formData.requestMethod = event.target.value;
+});
+requestBodyEl.addEventListener("change", function(event) {
+    formData.requestBody = event.target.value;
+});
 
-function submitFormData(formData) {
+function sendHTTPRequest() {
+    let {
+        requestUrl,
+        requestMethod,
+        requestBody
+    } = formData;
+    let url = requestUrl;
     let options = {
-        method: "POST",
+        method: requestMethod,
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
-            Authorization: "Bearer 9f401acddfb1dce3"
         },
-        body: JSON.stringify(formData)
+        body: requestBody
     };
-    let url = "https://gorest.co.in/public-api/users";
     fetch(url, options)
         .then(function(response) {
             return response.json();
         })
         .then(function(jsonData) {
-            console.log(jsonData);
-            if (jsonData.code === 422) {
-                let errorMsg = jsonData.data[0].message;
-
-                if (errorMsg === "has already been taken") {
-                    emailErrMsgEl.textContent = "Email already exists";
-                }
-
-            } else if (jsonData.code === 201) {
-                alert("User created successfully");
-            }
+            let requestStatus = jsonData.code;
+            responseStatusEl.value = requestStatus;
+            responseBodyEl.textContent = JSON.stringify(jsonData);
         });
 }
-addUserFormEl.addEventListener("submit", function(event) {
+consoleFormEl.addEventListener("submit", function(event) {
     event.preventDefault();
-    let isValid = validateFormData(formData);
-    if (isValid) {
-        submitFormData(formData);
-    }
-});
+    checkRequestUrl();
+    sendHTTPRequest();
+})
