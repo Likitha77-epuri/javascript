@@ -1,36 +1,61 @@
-let questionsFormEl = document.getElementById('questionsForm');
-let cityHyderabadEl = document.getElementById("cityHyderabad");
-let cityChennaiEl = document.getElementById("cityChennai");
-let cityDelhiEl = document.getElementById("cityDelhi");
-let cityMumbaiEl = document.getElementById("cityMumbai");
-let submitBtnEl = document.getElementById("submitBtn");
-let resultMsgEl = document.getElementById("resultMsg");
+let consoleFormEl = document.getElementById("consoleForm");
+let requestUrlEl = document.getElementById("requestUrl");
+let responseStatusEl = document.getElementById("responseStatus");
+let requestUrlErrMsgEl = document.getElementById("requestUrlErrMsg");
+let requestMethodEl = document.getElementById("requestMethod");
+let requestBodyEl = document.getElementById("requestBody");
+let responseBodyEl = document.getElementById("responseBody");
 
-let capitalCity = "Delhi";
-let selectedCity = null;
-
-cityHyderabadEl = addEventListener("change", function(event) {
-    selectedCity = event.target.value;
-});
-cityChennaiEl = addEventListener("change", function(event) {
-    selectedCity = event.target.value;
-});
-cityDelhiEl = addEventListener("change", function(event) {
-    selectedCity = event.target.value;
-});
-cityMumbaiEl = addEventListener("change", function(event) {
-    selectedCity = event.target.value;
-});
-questionsFormEl.addEventListener("submit", function(event) {
-    event.preventDefault();
-    if (selectedCity === null) {
-        resultMsgEl.textContent = "Please select the City!";
-        resultMsgEl.style.color = "#dc3545";
-    } else if (selectedCity === capitalCity) {
-        resultMsgEl.textContent = "Correct Answer!";
-        resultMsgEl.style.color = "#2b9a40";
+function checkRequestUrl() {
+    if (requestUrlEl.value === "") {
+        requestUrlErrMsgEl.textContent = "Required*";
+        requestUrlErrMsgEl.classList.add("error-message");
     } else {
-        resultMsgEl.textContent = "Wrong Answer!";
-        resultMsgEl.style.color = "#dc3545";
+        requestUrlErrMsgEl.textContent = "";
     }
+}
+let formData = {
+    requestUrl: "https://gorest.co.in/public-api/users",
+    requestMethod: "POST",
+    requestBody: ""
+}
+requestUrlEl.addEventListener("change", function(event) {
+    formData.requestUrl = event.target.value;
 });
+requestMethodEl.addEventListener("change", function(event) {
+    formData.requestMethod = event.target.value;
+});
+requestBodyEl.addEventListener("change", function(event) {
+    formData.requestBody = event.target.value;
+});
+
+function sendHTTPRequest() {
+    let {
+        requestUrl,
+        requestMethod,
+        requestBody
+    } = formData;
+    let url = requestUrl;
+    let options = {
+        method: requestMethod,
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        },
+        body: requestBody
+    };
+    fetch(url, options)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(jsonData) {
+            let requestStatus = jsonData.code;
+            responseStatusEl.value = requestStatus;
+            responseBodyEl.textContent = JSON.stringify(jsonData);
+        });
+}
+consoleFormEl.addEventListener("submit", function(event) {
+    event.preventDefault();
+    checkRequestUrl();
+    sendHTTPRequest();
+})
