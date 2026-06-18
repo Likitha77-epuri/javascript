@@ -1,0 +1,7 @@
+let createUser = name => {
+  return {
+    firstName: name
+  };
+};
+
+console.log(createUser("Rahul")); 
