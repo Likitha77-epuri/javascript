@@ -1,0 +1,3 @@
+const isLearning=require("./exportBoolean");
+
+console.log(isLearning);
