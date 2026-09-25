@@ -1,0 +1,72 @@
+import {Component} from 'react'
+
+import './index.css'
+
+class App extends Component {
+  state = {
+    rcbScore: 0,
+    cskScore: 0,
+  }
+
+  onClickRcb = () => {
+    this.setState(prevState => ({
+      rcbScore: prevState.rcbScore + 1,
+    }))
+  }
+
+  onClickCsk = () => {
+    this.setState(prevState => ({
+      cskScore: prevState.cskScore + 1,
+    }))
+  }
+
+  render() {
+    const {rcbScore, cskScore} = this.state
+
+    return (
+      <div className="app-container">
+        <div className="super-over-container">
+          <h1 className="heading">Super Over League</h1>
+
+          <div className="teams-container">
+            <div className="team-container">
+              <img
+                src="https://assets.ccbp.in/frontend/react-js/rcb-img.png"
+                alt="rcb"
+                className="team-image"
+              />
+              <h2 className="team-name">Royal Challengers Bangalore</h2>
+              <p className="score">{rcbScore}</p>
+              <button
+                type="button"
+                className="score-button"
+                onClick={this.onClickRcb}
+              >
+                Add 1 Run
+              </button>
+            </div>
+
+            <div className="team-container">
+              <img
+                src="https://assets.ccbp.in/frontend/react-js/csk-img.png"
+                alt="csk"
+                className="team-image"
+              />
+              <h2 className="team-name">Chennai Super Kings</h2>
+              <p className="score">{cskScore}</p>
+              <button
+                type="button"
+                className="score-button"
+                onClick={this.onClickCsk}
+              >
+                Add 1 Run
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
+export default App
