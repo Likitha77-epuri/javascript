@@ -1,0 +1,20 @@
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+
+const Button = ({ text, className }) => (
+  <button className={`button ${className}`}>{text}</button>
+);
+
+const App = () => (
+  <div className="bg-container">
+    <h1 className="heading">Social Buttons</h1>
+    <div className="buttons-container">
+      <Button text="Like" className="like-btn" />
+      <Button text="Comment" className="comment-btn" />
+      <Button text="Share" className="share-btn" />
+    </div>
+  </div>
+);
+
+ReactDOM.render(<App />, document.getElementById("root"));
