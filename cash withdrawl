@@ -1,0 +1,60 @@
+import {Component} from 'react'
+
+import DenominationItem from '../DenominationItem'
+
+import './index.css'
+
+class CashWithdrawal extends Component {
+  state = {
+    balance: 2000,
+  }
+
+  onWithdraw = value => {
+    this.setState(prevState => ({
+      balance: prevState.balance - value,
+    }))
+  }
+
+  render() {
+    const {denominationsList} = this.props
+    const {balance} = this.state
+
+    const username = 'Saahith'
+
+    return (
+      <div className="cash-withdrawal-container">
+        <div className="cash-withdrawal-card">
+          <div className="profile-container">
+            <div className="profile">
+              <p>S</p>
+            </div>
+            <h1>{username}</h1>
+          </div>
+
+          <div className="balance-container">
+            <p>Your Balance</p>
+            <div className="balance">
+              <p>{balance}</p>
+              <p>In Rupees</p>
+            </div>
+          </div>
+
+          <p className="withdraw-heading">Withdraw</p>
+          <p className="choose-text">CHOOSE SUM (IN RUPEES)</p>
+
+          <ul className="denominations-list">
+            {denominationsList.map(eachDenomination => (
+              <DenominationItem
+                key={eachDenomination.id}
+                denominationDetails={eachDenomination}
+                onWithdraw={this.onWithdraw}
+              />
+            ))}
+          </ul>
+        </div>
+      </div>
+    )
+  }
+}
+
+export default CashWithdrawal
