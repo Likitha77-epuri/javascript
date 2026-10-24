@@ -1,0 +1,66 @@
+import {Component} from 'react'
+
+import './index.css'
+
+class CoinToss extends Component {
+  state = {
+    totalCount: 0,
+    headsCount: 0,
+    tailsCount: 0,
+    tossResult: 'heads',
+  }
+
+  onTossCoin = () => {
+    const tossResult = Math.floor(Math.random() * 2)
+
+    if (tossResult === 0) {
+      this.setState(prevState => ({
+        tossResult: 'heads',
+        headsCount: prevState.headsCount + 1,
+        totalCount: prevState.totalCount + 1,
+      }))
+    } else {
+      this.setState(prevState => ({
+        tossResult: 'tails',
+        tailsCount: prevState.tailsCount + 1,
+        totalCount: prevState.totalCount + 1,
+      }))
+    }
+  }
+
+  render() {
+    const {totalCount, headsCount, tailsCount, tossResult} = this.state
+
+    const imageUrl =
+      tossResult === 'heads'
+        ? 'https://assets.ccbp.in/frontend/react-js/heads-img.png'
+        : 'https://assets.ccbp.in/frontend/react-js/tails-img.png'
+
+    return (
+      <div className="app-container">
+        <div className="coin-toss-container">
+          <h1 className="heading">Coin Toss Game</h1>
+          <p className="description">Heads (or) Tails</p>
+
+          <img src={imageUrl} alt="toss result" className="coin-image" />
+
+          <button
+            type="button"
+            className="toss-button"
+            onClick={this.onTossCoin}
+          >
+            Toss Coin
+          </button>
+
+          <div className="counts-container">
+            <p className="count-item">Total: {totalCount}</p>
+            <p className="count-item">Heads: {headsCount}</p>
+            <p className="count-item">Tails: {tailsCount}</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
+export default CoinToss
