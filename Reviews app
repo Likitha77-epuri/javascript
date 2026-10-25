@@ -1,0 +1,95 @@
+import {Component} from 'react'
+
+import './index.css'
+
+class ReviewsCarousel extends Component {
+  state = {
+    activeReviewIndex: 0,
+  }
+
+  onClickLeftArrow = () => {
+    const {activeReviewIndex} = this.state
+
+    if (activeReviewIndex > 0) {
+      this.setState(prevState => ({
+        activeReviewIndex: prevState.activeReviewIndex - 1,
+      }))
+    }
+  }
+
+  onClickRightArrow = () => {
+    const {reviewsList} = this.props
+    const {activeReviewIndex} = this.state
+
+    if (activeReviewIndex < reviewsList.length - 1) {
+      this.setState(prevState => ({
+        activeReviewIndex: prevState.activeReviewIndex + 1,
+      }))
+    }
+  }
+
+  render() {
+    const {reviewsList} = this.props
+    const {activeReviewIndex} = this.state
+
+    const activeReview = reviewsList[activeReviewIndex]
+
+    if (!activeReview) {
+      return null
+    }
+
+    const {imgUrl, username, companyName, description} = activeReview
+
+    return (
+      <div className="reviews-app-container">
+        <div className="reviews-container">
+          <h1 className="reviews-heading">Reviews</h1>
+
+          <div className="review-content">
+            <img
+              src={imgUrl}
+              alt={username}
+              className="profile-image"
+            />
+
+            <p className="username">{username}</p>
+
+            <p className="company-name">{companyName}</p>
+
+            <div className="review-description-container">
+              <button
+                type="button"
+                data-testid="leftArrow"
+                className="arrow-button"
+                onClick={this.onClickLeftArrow}
+              >
+                <img
+                  src="https://assets.ccbp.in/frontend/react-js/left-arrow-img.png"
+                  alt="left arrow"
+                  className="arrow-image"
+                />
+              </button>
+
+              <p className="description">{description}</p>
+
+              <button
+                type="button"
+                data-testid="rightArrow"
+                className="arrow-button"
+                onClick={this.onClickRightArrow}
+              >
+                <img
+                  src="https://assets.ccbp.in/frontend/react-js/right-arrow-img.png"
+                  alt="right arrow"
+                  className="arrow-image"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
+export default ReviewsCarousel
