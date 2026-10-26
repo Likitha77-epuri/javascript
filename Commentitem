@@ -1,0 +1,70 @@
+import {formatDistanceToNow} from 'date-fns'
+
+import './index.css'
+
+const CommentItem = props => {
+  const {commentDetails, onToggleLike, onDeleteComment} = props
+  const {id, name, comment, isLiked, date} = commentDetails
+
+  const initial = name.charAt(0).toUpperCase()
+
+  const likeImageUrl = isLiked
+    ? 'https://assets.ccbp.in/frontend/react-js/comments-app/liked-img.png'
+    : 'https://assets.ccbp.in/frontend/react-js/comments-app/like-img.png'
+
+  const timeAgo = formatDistanceToNow(date, {addSuffix: true})
+
+  const onClickLike = () => {
+    onToggleLike(id)
+  }
+
+  const onClickDelete = () => {
+    onDeleteComment(id)
+  }
+
+  return (
+    <li className="comment-item">
+      <div className="comment-main-container">
+        <div className="initial-container">
+          <p className="initial">{initial}</p>
+        </div>
+
+        <div className="comment-details-container">
+          <div className="comment-heading-container">
+            <p className="commenter-name">{name}</p>
+            <p className="comment-time">{timeAgo}</p>
+          </div>
+
+          <p className="comment-text">{comment}</p>
+
+          <div className="comment-actions-container">
+            <button
+              type="button"
+              className={`like-button ${isLiked ? 'liked' : ''}`}
+              onClick={onClickLike}
+            >
+              <img src={likeImageUrl} alt="like" className="like-image" />
+              <span>{isLiked ? 'Liked' : 'Like'}</span>
+            </button>
+
+            <button
+              type="button"
+              className="delete-button"
+              data-testid="delete"
+              onClick={onClickDelete}
+            >
+              <img
+                src="https://assets.ccbp.in/frontend/react-js/comments-app/delete-img.png"
+                alt="delete"
+                className="delete-image"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+      <hr className="comment-separator" />
+    </li>
+  )
+}
+
+export default CommentItem
