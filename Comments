@@ -1,0 +1,145 @@
+import {Component} from 'react'
+
+import {v4 as uuidv4} from 'uuid'
+
+import CommentItem from '../CommentItem'
+
+import './index.css'
+
+const initialContainerBackgroundClassNames = [
+  'amber',
+  'blue',
+  'orange',
+  'emerald',
+  'teal',
+  'red',
+  'light-blue',
+]
+
+// Write your code here
+
+
+
+class Comments extends Component {
+  state = {
+    nameInput: '',
+    commentInput: '',
+    commentsList: [],
+  }
+
+  onChangeName = event => {
+    this.setState({nameInput: event.target.value})
+  }
+
+  onChangeComment = event => {
+    this.setState({commentInput: event.target.value})
+  }
+
+  onAddComment = event => {
+    event.preventDefault()
+
+    const {nameInput, commentInput} = this.state
+
+    if (nameInput.trim() !== '' && commentInput.trim() !== '') {
+      const newComment = {
+        id: uuidv4(),
+        name: nameInput.trim(),
+        comment: commentInput.trim(),
+        isLiked: false,
+        date: new Date(),
+      }
+
+      this.setState(prevState => ({
+        commentsList: [...prevState.commentsList, newComment],
+        nameInput: '',
+        commentInput: '',
+      }))
+    }
+  }
+
+  onToggleLike = id => {
+    this.setState(prevState => ({
+      commentsList: prevState.commentsList.map(eachComment => {
+        if (eachComment.id === id) {
+          return {...eachComment, isLiked: !eachComment.isLiked}
+        }
+        return eachComment
+      }),
+    }))
+  }
+
+  onDeleteComment = id => {
+    this.setState(prevState => ({
+      commentsList: prevState.commentsList.filter(
+        eachComment => eachComment.id !== id,
+      ),
+    }))
+  }
+
+  render() {
+    const {nameInput, commentInput, commentsList} = this.state
+
+    return (
+      <div className="comments-app-container">
+        <div className="comments-content">
+          <div className="comments-top-section">
+            <div className="comments-form-container">
+              <h1 className="main-heading">Comments</h1>
+              <p className="form-description">
+                Say something about 4.0 Technologies
+              </p>
+
+              <form onSubmit={this.onAddComment}>
+                <input
+                  type="text"
+                  className="name-input"
+                  placeholder="Your Name"
+                  value={nameInput}
+                  onChange={this.onChangeName}
+                />
+
+                <textarea
+                  className="comment-input"
+                  placeholder="Your Comment"
+                  value={commentInput}
+                  onChange={this.onChangeComment}
+                  rows="5"
+                />
+
+                <button type="submit" className="add-comment-button">
+                  Add Comment
+                </button>
+              </form>
+            </div>
+
+            <img
+              src="https://assets.ccbp.in/frontend/react-js/comments-app/comments-img.png"
+              alt="comments"
+              className="comments-image"
+            />
+          </div>
+
+          <hr className="separator" />
+
+          <div className="comments-count-container">
+            <p className="count-number">{commentsList.length}</p>
+            <p className="count-label">Comments</p>
+          </div>
+
+          <ul className="comments-list">
+            {commentsList.map(eachComment => (
+              <CommentItem
+                key={eachComment.id}
+                commentDetails={eachComment}
+                onToggleLike={this.onToggleLike}
+                onDeleteComment={this.onDeleteComment}
+              />
+            ))}
+          </ul>
+        </div>
+      </div>
+    )
+  }
+}
+
+export default Comments
