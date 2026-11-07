@@ -1,0 +1,54 @@
+import {Component} from 'react'
+import './index.css'
+
+class FaqItem extends Component {
+  state = {
+    isAnswerVisible: false,
+  }
+
+  toggleAnswer = () => {
+    this.setState(prevState => ({
+      isAnswerVisible: !prevState.isAnswerVisible,
+    }))
+  }
+
+  render() {
+    const {faqDetails} = this.props
+    const {questionText, answerText} = faqDetails
+    const {isAnswerVisible} = this.state
+
+    const iconUrl = isAnswerVisible
+      ? 'https://assets.ccbp.in/frontend/react-js/faqs-minus-icon-img.png'
+      : 'https://assets.ccbp.in/frontend/react-js/faqs-plus-icon-img.png'
+
+    return (
+      <li className="faq-item">
+        <div className="faq-question-container">
+          <h1 className="faq-question">{questionText}</h1>
+
+          <button
+            type="button"
+            className="faq-toggle-button"
+            onClick={this.toggleAnswer}
+            aria-label={isAnswerVisible ? 'Hide answer' : 'Show answer'}
+          >
+            <img
+              src={iconUrl}
+              alt={isAnswerVisible ? 'minus' : 'plus'}
+              className="faq-icon"
+            />
+          </button>
+        </div>
+
+        {isAnswerVisible && (
+          <>
+            <hr className="faq-divider" />
+            <p className="faq-answer">{answerText}</p>
+          </>
+        )}
+      </li>
+    )
+  }
+}
+
+export default FaqItem
