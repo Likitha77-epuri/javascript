@@ -1,0 +1,30 @@
+import CryptocurrencyItem from '../CryptocurrencyItem'
+
+import './index.css'
+
+const CryptocurrenciesList = props => {
+  const {cryptocurrenciesList} = props
+
+  return (
+    <div className="crypto-list-container">
+      <ul className="crypto-list">
+        <li className="crypto-header">
+          <p className="coin-heading">Coin</p>
+          <div className="currency-headings">
+            <p>USD</p>
+            <p>EURO</p>
+          </div>
+        </li>
+
+        {cryptocurrenciesList.map(eachCrypto => (
+          <CryptocurrencyItem
+            key={eachCrypto.id}
+            cryptocurrencyDetails={eachCrypto}
+          />
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+export default CryptocurrenciesList
