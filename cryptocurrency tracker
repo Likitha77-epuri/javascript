@@ -1,0 +1,72 @@
+import {Component} from 'react'
+import Loader from 'react-loader-spinner'
+
+import CryptocurrenciesList from '../CryptocurrenciesList'
+
+import './index.css'
+
+const cryptocurrenciesApiUrl =
+  'https://apis.ccbp.in/crypto-currency-converter'
+
+class CryptocurrencyTracker extends Component {
+  state = {
+    cryptocurrenciesList: [],
+    isLoading: true,
+  }
+
+  componentDidMount() {
+    this.getCryptocurrencies()
+  }
+
+  getCryptocurrencies = async () => {
+    const response = await fetch(cryptocurrenciesApiUrl)
+    const data = await response.json()
+
+    const updatedData = data.map(eachCrypto => ({
+      id: eachCrypto.id,
+      currencyName: eachCrypto.currency_name,
+      usdValue: eachCrypto.usd_value,
+      euroValue: eachCrypto.euro_value,
+      currencyLogo: eachCrypto.currency_logo,
+    }))
+
+    this.setState({
+      cryptocurrenciesList: updatedData,
+      isLoading: false,
+    })
+  }
+
+  renderLoader = () => (
+    <div className="loader-container" data-testid="loader">
+      <Loader type="Rings" color="#ffffff" height={80} width={80} />
+    </div>
+  )
+
+  render() {
+    const {cryptocurrenciesList, isLoading} = this.state
+
+    return (
+      <div className="cryptocurrency-app">
+        <div className="cryptocurrency-container">
+          <h1 className="main-heading">Cryptocurrency Tracker</h1>
+
+          <img
+            className="cryptocurrency-image"
+            src="https://assets.ccbp.in/frontend/react-js/cryptocurrency-bg.png"
+            alt="cryptocurrency"
+          />
+
+          {isLoading ? (
+            this.renderLoader()
+          ) : (
+            <CryptocurrenciesList
+              cryptocurrenciesList={cryptocurrenciesList}
+            />
+          )}
+        </div>
+      </div>
+    )
+  }
+}
+
+export default CryptocurrencyTracker
