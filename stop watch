@@ -1,0 +1,105 @@
+import {Component} from 'react'
+
+import './index.css'
+
+class Stopwatch extends Component {
+  state = {
+    timeElapsedInSeconds: 0,
+    isTimerRunning: false,
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId)
+  }
+
+  onStartTimer = () => {
+    const {isTimerRunning} = this.state
+
+    if (!isTimerRunning) {
+      this.intervalId = setInterval(this.incrementTime, 1000)
+      this.setState({isTimerRunning: true})
+    }
+  }
+
+  onStopTimer = () => {
+    clearInterval(this.intervalId)
+    this.setState({isTimerRunning: false})
+  }
+
+  onResetTimer = () => {
+    clearInterval(this.intervalId)
+    this.setState({
+      timeElapsedInSeconds: 0,
+      isTimerRunning: false,
+    })
+  }
+
+  incrementTime = () => {
+    this.setState(prevState => ({
+      timeElapsedInSeconds: prevState.timeElapsedInSeconds + 1,
+    }))
+  }
+
+  getElapsedTime = () => {
+    const {timeElapsedInSeconds} = this.state
+
+    const minutes = Math.floor(timeElapsedInSeconds / 60)
+    const seconds = timeElapsedInSeconds % 60
+
+    const formattedMinutes = minutes > 9 ? minutes : `0${minutes}`
+    const formattedSeconds = seconds > 9 ? seconds : `0${seconds}`
+
+    return `${formattedMinutes}:${formattedSeconds}`
+  }
+
+  render() {
+    const {isTimerRunning} = this.state
+
+    return (
+      <div className="stopwatch-container">
+        <div className="stopwatch">
+          <h1 className="heading">Stopwatch</h1>
+          <div className="timer-container">
+            <div className="timer">
+              <img
+                className="timer-image"
+                src="https://assets.ccbp.in/frontend/react-js/stopwatch-timer.png"
+                alt="stopwatch"
+              />
+              <p className="timer-text">00:00</p>
+            </div>
+            <h1 className="stopwatch-timer">{this.getElapsedTime()}</h1>
+            <div className="timer-controls">
+              <button
+                type="button"
+                className="start-button"
+                onClick={this.onStartTimer}
+                disabled={isTimerRunning}
+              >
+                Start
+              </button>
+              <button
+                type="button"
+                className="stop-button"
+                onClick={this.onStopTimer}
+              >
+                Stop
+              </button>
+              <button
+                type="button"
+                className="reset-button"
+                onClick={this.onResetTimer}
+              >
+                Reset
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
+export default Stopwatch
+
+
